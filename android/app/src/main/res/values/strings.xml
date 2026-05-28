@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Cuidar Já</string>
+    <string name="title_activity_main">Cuidar Já</string>
+    <string name="package_name">com.cuidarja.app</string>
+    <string name="custom_url_scheme">com.cuidarja.app</string>
+</resources>

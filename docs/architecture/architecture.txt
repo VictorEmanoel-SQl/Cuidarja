@@ -1,0 +1,775 @@
+📁 App
+│
+├── 📁 android
+│   ├── 📁 app
+│   │   ├── 📁 src
+│   │   │   ├── 📁 androidTest
+│   │   │   │   └── 📁 java
+│   │   │   │       └── 📁 com
+│   │   │   │           └── 📁 getcapacitor
+│   │   │   │               └── 📁 myapp
+│   │   │   │                   └── ☕ ExampleInstrumentedTest.java
+│   │   │   ├── 📁 main
+│   │   │   │   ├── 📁 java
+│   │   │   │   │   └── 📁 com
+│   │   │   │   │       └── 📁 cuidarja
+│   │   │   │   │           └── 📁 app
+│   │   │   │   │               └── ☕ MainActivity.java
+│   │   │   │   ├── 📁 res
+│   │   │   │   │   ├── 📁 drawable
+│   │   │   │   │   │   ├── ⚙️ ic_launcher_background.xml
+│   │   │   │   │   │   └── 🖼️ splash.png
+│   │   │   │   │   ├── 📁 drawable-land-hdpi
+│   │   │   │   │   │   └── 🖼️ splash.png
+│   │   │   │   │   ├── 📁 drawable-land-mdpi
+│   │   │   │   │   │   └── 🖼️ splash.png
+│   │   │   │   │   ├── 📁 drawable-land-xhdpi
+│   │   │   │   │   │   └── 🖼️ splash.png
+│   │   │   │   │   ├── 📁 drawable-land-xxhdpi
+│   │   │   │   │   │   └── 🖼️ splash.png
+│   │   │   │   │   ├── 📁 drawable-land-xxxhdpi
+│   │   │   │   │   │   └── 🖼️ splash.png
+│   │   │   │   │   ├── 📁 drawable-port-hdpi
+│   │   │   │   │   │   └── 🖼️ splash.png
+│   │   │   │   │   ├── 📁 drawable-port-mdpi
+│   │   │   │   │   │   └── 🖼️ splash.png
+│   │   │   │   │   ├── 📁 drawable-port-xhdpi
+│   │   │   │   │   │   └── 🖼️ splash.png
+│   │   │   │   │   ├── 📁 drawable-port-xxhdpi
+│   │   │   │   │   │   └── 🖼️ splash.png
+│   │   │   │   │   ├── 📁 drawable-port-xxxhdpi
+│   │   │   │   │   │   └── 🖼️ splash.png
+│   │   │   │   │   ├── 📁 drawable-v24
+│   │   │   │   │   │   └── ⚙️ ic_launcher_foreground.xml
+│   │   │   │   │   ├── 📁 layout
+│   │   │   │   │   │   └── ⚙️ activity_main.xml
+│   │   │   │   │   ├── 📁 mipmap-anydpi-v26
+│   │   │   │   │   │   ├── ⚙️ ic_launcher.xml
+│   │   │   │   │   │   └── ⚙️ ic_launcher_round.xml
+│   │   │   │   │   ├── 📁 mipmap-hdpi
+│   │   │   │   │   │   ├── 🖼️ ic_launcher.png
+│   │   │   │   │   │   ├── 🖼️ ic_launcher_foreground.png
+│   │   │   │   │   │   └── 🖼️ ic_launcher_round.png
+│   │   │   │   │   ├── 📁 mipmap-mdpi
+│   │   │   │   │   │   ├── 🖼️ ic_launcher.png
+│   │   │   │   │   │   ├── 🖼️ ic_launcher_foreground.png
+│   │   │   │   │   │   └── 🖼️ ic_launcher_round.png
+│   │   │   │   │   ├── 📁 mipmap-xhdpi
+│   │   │   │   │   │   ├── 🖼️ ic_launcher.png
+│   │   │   │   │   │   ├── 🖼️ ic_launcher_foreground.png
+│   │   │   │   │   │   └── 🖼️ ic_launcher_round.png
+│   │   │   │   │   ├── 📁 mipmap-xxhdpi
+│   │   │   │   │   │   ├── 🖼️ ic_launcher.png
+│   │   │   │   │   │   ├── 🖼️ ic_launcher_foreground.png
+│   │   │   │   │   │   └── 🖼️ ic_launcher_round.png
+│   │   │   │   │   ├── 📁 mipmap-xxxhdpi
+│   │   │   │   │   │   ├── 🖼️ ic_launcher.png
+│   │   │   │   │   │   ├── 🖼️ ic_launcher_foreground.png
+│   │   │   │   │   │   └── 🖼️ ic_launcher_round.png
+│   │   │   │   │   ├── 📁 values
+│   │   │   │   │   │   ├── ⚙️ ic_launcher_background.xml
+│   │   │   │   │   │   ├── ⚙️ strings.xml
+│   │   │   │   │   │   └── ⚙️ styles.xml
+│   │   │   │   │   └── 📁 xml
+│   │   │   │   │       └── ⚙️ file_paths.xml
+│   │   │   │   └── ⚙️ AndroidManifest.xml
+│   │   │   └── 📁 test
+│   │   │       └── 📁 java
+│   │   │           └── 📁 com
+│   │   │               └── 📁 getcapacitor
+│   │   │                   └── 📁 myapp
+│   │   │                       └── ☕ ExampleUnitTest.java
+│   │   ├── ⚙️ .gitignore
+│   │   ├── 📄 build.gradle
+│   │   └── 📄 proguard-rules.pro
+│   ├── 📁 gradle
+│   │   └── 📁 wrapper
+│   │       ├── 📄 gradle-wrapper.jar
+│   │       └── 📄 gradle-wrapper.properties
+│   ├── ⚙️ .gitignore
+│   ├── 📄 build.gradle
+│   ├── 📄 gradle.properties
+│   ├── 📄 gradlew
+│   ├── 📄 gradlew.bat
+│   ├── 📄 settings.gradle
+│   └── 📄 variables.gradle
+│
+├── 📁 docs
+│   ├── 📁 accessibility
+│   ├── 📁 api
+│   ├── 📁 architecture
+│   │   └── 📄 architecture.txt
+│   ├── 📁 conventions
+│   ├── 📁 database
+│   ├── 📁 deployment
+│   ├── 📁 diagrams
+│   ├── 📁 offline-mode
+│   ├── 📁 onboarding
+│   ├── 📁 operational
+│   ├── 📁 security
+│   ├── 📁 socket
+│   └── 📁 troubleshooting
+│
+├── 📁 ios
+│   ├── 📁 App
+│   │   ├── 📁 App
+│   │   │   ├── 📁 Assets.xcassets
+│   │   │   │   ├── 📁 AppIcon.appiconset
+│   │   │   │   │   ├── 🖼️ AppIcon-512@2x.png
+│   │   │   │   │   └── ⚙️ Contents.json
+│   │   │   │   ├── 📁 Splash.imageset
+│   │   │   │   │   ├── ⚙️ Contents.json
+│   │   │   │   │   ├── 🖼️ splash-2732x2732-1.png
+│   │   │   │   │   ├── 🖼️ splash-2732x2732-2.png
+│   │   │   │   │   └── 🖼️ splash-2732x2732.png
+│   │   │   │   └── ⚙️ Contents.json
+│   │   │   ├── 📁 Base.lproj
+│   │   │   │   ├── 📄 LaunchScreen.storyboard
+│   │   │   │   └── 📄 Main.storyboard
+│   │   │   ├── 🍎 AppDelegate.swift
+│   │   │   └── 📄 Info.plist
+│   │   ├── 📁 App.xcodeproj
+│   │   │   ├── 📁 project.xcworkspace
+│   │   │   │   └── 📁 xcshareddata
+│   │   │   │       └── 📄 IDEWorkspaceChecks.plist
+│   │   │   └── 📄 project.pbxproj
+│   │   └── 📁 CapApp-SPM
+│   │       ├── 📁 Sources
+│   │       │   └── 📁 CapApp-SPM
+│   │       │       └── 🍎 CapApp-SPM.swift
+│   │       ├── ⚙️ .gitignore
+│   │       ├── 🍎 Package.swift
+│   │       └── 📝 README.md
+│   ├── ⚙️ .gitignore
+│   └── 📄 debug.xcconfig
+│
+├── 📁 scripts
+│   ├── 📁 database
+│   ├── 📁 deploy
+│   └── 📁 maintenance
+│
+├── 📁 server
+│   ├── 📁 dependencies
+│   │   └── 📄 Conector.jar
+│   ├── 📁 src
+│   │   ├── 📁 config
+│   │   ├── 📁 controllers
+│   │   ├── 📁 core
+│   │   ├── 📁 domain
+│   │   ├── 📁 exceptions
+│   │   ├── 📁 middleware
+│   │   ├── 📁 models
+│   │   ├── 📁 persistence
+│   │   ├── 📁 repositories
+│   │   ├── 📁 security
+│   │   ├── 📁 sync
+│   │   ├── 📁 utils
+│   │   ├── 📁 validators
+│   │   └── 📁 websocket
+│   └── 📁 tests
+│
+├── 📁 web
+│   ├── 📁 assets
+│   │   ├── 📁 audio
+│   │   ├── 📁 fonts
+│   │   ├── 📁 gifs
+│   │   ├── 📁 icons
+│   │   ├── 📁 illustrations
+│   │   └── 📁 images
+│   ├── 📁 common
+│   │   ├── 📁 adapters
+│   │   │   ├── 📄 api.adapter.js
+│   │   │   └── 📄 socket.adapter.js
+│   │   ├── 📁 components
+│   │   │   ├── 📁 button
+│   │   │   │   ├── 🎨 button.component.css
+│   │   │   │   ├── 🌐 button.component.html
+│   │   │   │   └── 📄 button.component.js
+│   │   │   ├── 📁 emergency-button
+│   │   │   │   ├── 🎨 emergency-button.component.css
+│   │   │   │   ├── 🌐 emergency-button.component.html
+│   │   │   │   └── 📄 emergency-button.component.js
+│   │   │   ├── 📁 form-builder
+│   │   │   │   ├── 🎨 form-builder.component.css
+│   │   │   │   ├── 🌐 form-builder.component.html
+│   │   │   │   └── 📄 form-builder.component.js
+│   │   │   ├── 📁 header
+│   │   │   │   ├── 🎨 header.component.css
+│   │   │   │   ├── 🌐 header.component.html
+│   │   │   │   └── 📄 header.component.js
+│   │   │   ├── 📁 modal
+│   │   │   │   ├── 🎨 modal.component.css
+│   │   │   │   ├── 🌐 modal.component.html
+│   │   │   │   └── 📄 modal.component.js
+│   │   │   ├── 📁 overlay
+│   │   │   │   ├── 🎨 overlay.component.css
+│   │   │   │   ├── 🌐 overlay.component.html
+│   │   │   │   └── 📄 overlay.component.js
+│   │   │   └── 📁 pagination
+│   │   │       ├── 🎨 pagination.component.css
+│   │   │       ├── 🌐 pagination.component.html
+│   │   │       └── 📄 pagination.component.js
+│   │   ├── 📁 constants
+│   │   │   ├── 📄 colors.constant.js
+│   │   │   ├── 📄 permissions.constant.js
+│   │   │   └── 📄 routes.constant.js
+│   │   ├── 📁 gestures
+│   │   │   └── 📁 swipe
+│   │   │       ├── 📄 swipe.horizontal.js
+│   │   │       ├── 📄 swipe.threshold.js
+│   │   │       └── 📄 swipe.vertical.js
+│   │   └── 📁 helpers
+│   │       ├── 📄 animation.helper.js
+│   │       ├── 📄 date.helper.js
+│   │       ├── 📄 dom.helper.js
+│   │       └── 📄 network.helper.js
+│   ├── 📁 config
+│   │   ├── 📄 accessibility.config.js
+│   │   ├── 📄 app.config.js
+│   │   ├── 📄 env.config.js
+│   │   ├── 📄 routes.config.js
+│   │   └── 📄 socket.config.js
+│   ├── 📁 core
+│   │   ├── 📄 app.js
+│   │   ├── 📄 application-runtime.js
+│   │   ├── 📄 dependency-container.js
+│   │   ├── 📄 lifecycle.js
+│   │   ├── 📄 module-loader.js
+│   │   ├── 📄 route-engine.js
+│   │   ├── 📄 router.js
+│   │   ├── 📄 startup-manager.js
+│   │   └── 📄 state-manager.js
+│   ├── 📁 domain
+│   │   ├── 📁 accessibility
+│   │   │   ├── 📄 contrast.manager.js
+│   │   │   ├── 📄 font.manager.js
+│   │   │   └── 📄 theme.manager.js
+│   │   ├── 📁 api
+│   │   │   ├── 📄 auth.api.js
+│   │   │   ├── 📄 emergency.api.js
+│   │   │   ├── 📄 form.api.js
+│   │   │   ├── 📄 purchase.api.js
+│   │   │   └── 📄 user.api.js
+│   │   ├── 📁 auth
+│   │   │   ├── 📄 login.domain.js
+│   │   │   ├── 📄 permission.domain.js
+│   │   │   └── 📄 token.domain.js
+│   │   ├── 📁 device
+│   │   │   ├── 📄 battery.device.js
+│   │   │   ├── 📄 camera.device.js
+│   │   │   ├── 📄 geolocation.device.js
+│   │   │   ├── 📄 notification.device.js
+│   │   │   └── 📄 vibration.device.js
+│   │   ├── 📁 realtime
+│   │   │   ├── 📄 presence.manager.js
+│   │   │   ├── 📄 reconnect.strategy.js
+│   │   │   ├── 📄 socket.client.js
+│   │   │   └── 📄 socket.events.js
+│   │   ├── 📁 storage
+│   │   │   ├── 📄 cache.storage.js
+│   │   │   ├── 📄 local.storage.js
+│   │   │   ├── 📄 offline.queue.js
+│   │   │   └── 📄 session.storage.js
+│   │   ├── 📁 sync
+│   │   │   ├── 📄 conflict.resolver.js
+│   │   │   ├── 📄 sync.manager.js
+│   │   │   └── 📄 sync.queue.js
+│   │   └── 📁 validators
+│   │       ├── 📄 auth.validator.js
+│   │       ├── 📄 emergency.validator.js
+│   │       └── 📄 form.validator.js
+│   ├── 📁 modules
+│   │   ├── 📁 auth
+│   │   │   ├── 📄 auth.routes.js
+│   │   │   ├── 📄 login.controller.js
+│   │   │   ├── 📄 login.domain.js
+│   │   │   ├── 📄 login.state.js
+│   │   │   ├── 🎨 login.style.css
+│   │   │   └── 🌐 login.view.html
+│   │   ├── 📁 dashboard
+│   │   │   ├── 📄 dashboard.controller.js
+│   │   │   ├── 📄 dashboard.domain.js
+│   │   │   ├── 📄 dashboard.routes.js
+│   │   │   ├── 📄 dashboard.state.js
+│   │   │   ├── 🎨 dashboard.style.css
+│   │   │   └── 🌐 dashboard.view.html
+│   │   ├── 📁 elderly-care
+│   │   │   ├── 📄 elderly-care.controller.js
+│   │   │   ├── 📄 elderly-care.domain.js
+│   │   │   ├── 📄 elderly-care.state.js
+│   │   │   ├── 🎨 elderly-care.style.css
+│   │   │   └── 🌐 elderly-care.view.html
+│   │   ├── 📁 emergency
+│   │   │   ├── 📄 emergency.controller.js
+│   │   │   ├── 📄 emergency.domain.js
+│   │   │   ├── 📄 emergency.state.js
+│   │   │   ├── 🎨 emergency.style.css
+│   │   │   └── 🌐 emergency.view.html
+│   │   ├── 📁 forms
+│   │   │   ├── 📄 forms.controller.js
+│   │   │   ├── 📄 forms.domain.js
+│   │   │   ├── 📄 forms.state.js
+│   │   │   ├── 🎨 forms.style.css
+│   │   │   └── 🌐 forms.view.html
+│   │   ├── 📁 home
+│   │   │   ├── 📄 home.controller.js
+│   │   │   ├── 📄 home.domain.js
+│   │   │   ├── 📄 home.routes.js
+│   │   │   ├── 📄 home.state.js
+│   │   │   ├── 🎨 home.style.css
+│   │   │   └── 🌐 home.view.html
+│   │   ├── 📁 settings
+│   │   │   ├── 📄 settings.controller.js
+│   │   │   ├── 📄 settings.domain.js
+│   │   │   ├── 📄 settings.state.js
+│   │   │   ├── 🎨 settings.style.css
+│   │   │   └── 🌐 settings.view.html
+│   │   └── 📁 store
+│   │       ├── 📄 store.controller.js
+│   │       ├── 📄 store.domain.js
+│   │       ├── 📄 store.state.js
+│   │       ├── 🎨 store.style.css
+│   │       └── 🌐 store.view.html
+│   ├── 📁 styles
+│   │   ├── 📁 base
+│   │   │   ├── 🎨 accessibility.css
+│   │   │   ├── 🎨 animations.css
+│   │   │   ├── 🎨 global.css
+│   │   │   ├── 🎨 reset.css
+│   │   │   ├── 🎨 typography.css
+│   │   │   └── 🎨 variables.css
+│   │   └── 📁 layout
+│   │       ├── 🎨 container.css
+│   │       ├── 🎨 grid.css
+│   │       ├── 🎨 navigation.css
+│   │       ├── 🎨 responsive.css
+│   │       └── 🎨 spacing.css
+│   └── 📁 tests
+│       ├── 📁 e2e
+│       ├── 📁 integration
+│       ├── 📁 unit
+│       └── ⚙️ capacitor.config.json
+│
+│
+├── ⚙️ .gitignore
+├── 📄 LICENSE
+├── 📝 README.md
+├── 📄 Observador.vbs
+├── 📄 capacitor.config.ts
+├── 🌐 index.html
+├── ⚙️ manifest.json
+├── ⚙️ package.json
+└── 📄 vite.config.ts
+
+
+
+
+
+
+O projeto está dividido em camadas bem definidas. A raiz contém os arquivos de configuração geral, a pasta `web/` contém todo o frontend, a pasta `server/` contém o backend, `docs/` guarda a documentação e `scripts/` reúne automações auxiliares. Essa organização permite separar interface, regras de negócio, persistência e documentação de forma clara.
+
+O fluxo principal funciona assim: o navegador ou WebView abre o `index.html`, que carrega os estilos e o arquivo principal `web/core/app.js`. A partir daí, o `startup-manager.js` inicializa o sistema, o `router.js` decide qual módulo será mostrado e os arquivos dentro de `web/modules/` montam as telas e funcionalidades. Quando for preciso acessar dados remotos, o frontend se comunica com o `server/`, que processa a lógica, valida os dados e devolve a resposta.
+
+Arquivos da raiz
+
+Os arquivos da raiz controlam o comportamento geral do projeto e sua execução.
+
+* `.gitignore`: informa ao Git quais arquivos e pastas devem ser ignorados.
+* `LICENSE`: define a licença de uso do projeto.
+* `README.md`: explica o objetivo do projeto, como instalar e como executar.
+* `Observador.vbs`: script auxiliar do Windows para automações.
+* `capacitor.config.ts`: configura o Capacitor e liga o frontend ao ambiente híbrido.
+* `index.html`: ponto de entrada visual da aplicação.
+* `manifest.json`: manifesto web/PWA, com nome, ícone e comportamento da aplicação.
+* `package.json`: define scripts, dependências e informações do projeto JavaScript.
+* `vite.config.ts`: configura o Vite, responsável pelo build e ambiente de desenvolvimento.
+
+Pasta `docs/`
+
+A pasta `docs/` guarda a documentação técnica e organizacional do sistema. Ela serve para registrar decisões de arquitetura, padrões, integração e manutenção. Isso facilita o trabalho em equipe e evita perda de contexto no futuro.
+
+* `accessibility/`: documentos sobre acessibilidade.
+* `api/`: documentação da API.
+* `architecture/`: documentação da arquitetura do sistema.
+* `conventions/`: convenções de código e organização.
+* `database/`: documentação do banco de dados.
+* `deployment/`: instruções de publicação e implantação.
+* `diagrams/`: diagramas da aplicação.
+* `offline-mode/`: documentação do funcionamento offline.
+* `onboarding/`: guia de entrada para novos desenvolvedores.
+* `operational/`: procedimentos operacionais.
+* `security/`: regras e práticas de segurança.
+* `socket/`: documentação da comunicação em tempo real.
+* `troubleshooting/`: solução de problemas comuns.
+
+O arquivo `architecture.txt` registra a estrutura geral do projeto, as camadas e as relações entre elas.
+
+Pasta `scripts/`
+
+A pasta `scripts/` contém automações e utilitários usados fora da interface principal. Ela ajuda em tarefas repetitivas, manutenção e deploy.
+
+* `database/`: scripts ligados ao banco de dados.
+* `deploy/`: scripts de publicação e distribuição.
+* `maintenance/`: scripts de limpeza e manutenção.
+
+Esses arquivos não fazem parte da interface do usuário, mas apoiam o ciclo de vida do projeto.
+
+Pasta `server/`
+
+A pasta `server/` contém o backend da aplicação. É nela que ficam as regras de negócio mais sensíveis, a comunicação com o banco e a lógica de sincronização e segurança.
+
+* `dependencies/`: bibliotecas externas usadas pelo backend.
+
+  * `Conector.jar`: driver ou conector Java para o banco de dados.
+
+* `src/`: código principal do servidor.
+
+* `tests/`: testes do backend.
+
+Dentro de `src/`, cada pasta tem uma função específica:
+
+* `config/`: configurações do servidor.
+* `controllers/`: recebem requisições e chamam as regras de negócio.
+* `core/`: núcleo e inicialização do servidor.
+* `domain/`: regras de negócio puras.
+* `exceptions/`: exceções personalizadas.
+* `middleware/`: filtros e camadas intermediárias.
+* `models/`: modelos de dados.
+* `persistence/`: acesso ao armazenamento.
+* `repositories/`: comunicação entre domínio e persistência.
+* `security/`: autenticação, tokens e criptografia.
+* `sync/`: sincronização entre online e offline.
+* `utils/`: funções auxiliares.
+* `validators/`: validações de entrada.
+* `websocket/`: comunicação em tempo real.
+
+A ligação mais comum no backend é:
+controller recebe a requisição, domain aplica a regra, repository acessa os dados e persistence salva ou lê as informações.
+
+Pasta `web/`
+
+A pasta `web/` é o frontend da aplicação. Ela reúne interface, lógica de navegação, módulos funcionais, componentes reutilizáveis, estilos e integrações com o backend.
+
+O funcionamento geral segue esta lógica:
+`index.html` carrega `web/core/app.js`, que inicia a aplicação, cria o runtime e chama o roteador. O roteador escolhe o módulo certo, e esse módulo monta a tela usando componentes e estilos compartilhados.
+
+`web/assets/`
+
+Essa pasta guarda arquivos estáticos usados pela interface.
+
+* `audio/`: sons da aplicação.
+* `fonts/`: fontes personalizadas.
+* `gifs/`: animações GIF.
+* `icons/`: ícones da interface.
+* `illustrations/`: ilustrações.
+* `images/`: imagens gerais.
+
+Esses arquivos são usados pelos módulos, componentes e estilos visuais.
+
+`web/common/`
+
+A pasta `web/common/` contém elementos reutilizáveis em várias partes do sistema. Ela evita duplicação de código e mantém consistência visual e lógica.
+
+`adapters/`
+
+Os adapters fazem a ponte entre o frontend e sistemas externos.
+
+* `api.adapter.js`: padroniza chamadas para a API.
+* `socket.adapter.js`: padroniza a comunicação por socket.
+
+`components/`
+
+Os componentes são blocos visuais reutilizáveis.
+
+* `button/`: botão padrão.
+* `emergency-button/`: botão de emergência.
+* `form-builder/`: construtor de formulários.
+* `header/`: cabeçalho da aplicação.
+* `modal/`: janela modal.
+* `overlay/`: camada de sobreposição.
+* `pagination/`: componente de paginação.
+
+Cada componente normalmente se divide em:
+
+* HTML: estrutura.
+* CSS: aparência.
+* JS: comportamento.
+
+`constants/`
+
+Contém valores fixos usados por todo o projeto.
+
+* `colors.constant.js`: cores padrão.
+* `permissions.constant.js`: permissões.
+* `routes.constant.js`: rotas da aplicação.
+
+`gestures/`
+
+Arquivos de interação por toque.
+
+* `swipe.horizontal.js`: deslize horizontal.
+* `swipe.vertical.js`: deslize vertical.
+* `swipe.threshold.js`: distância mínima para reconhecer o gesto.
+
+`helpers/`
+
+Funções auxiliares compartilhadas.
+
+* `animation.helper.js`: utilitários de animação.
+* `date.helper.js`: manipulação de datas.
+* `dom.helper.js`: manipulação do DOM.
+* `network.helper.js`: verificação de conectividade.
+
+Esses arquivos são usados pelos módulos e pelo núcleo do frontend.
+
+`web/config/`
+
+Essa pasta contém configurações centrais do frontend.
+
+* `accessibility.config.js`: parâmetros de acessibilidade.
+* `app.config.js`: configuração geral da aplicação.
+* `env.config.js`: variáveis de ambiente.
+* `routes.config.js`: mapa de rotas.
+* `socket.config.js`: configuração da comunicação em tempo real.
+
+Esses arquivos são lidos pelo núcleo da aplicação e pelos módulos que precisam dessas configurações.
+
+`web/core/`
+
+Essa é a base de inicialização do frontend. Ela organiza a execução principal do sistema.
+
+* `app.js`: ponto de entrada principal do JavaScript.
+* `application-runtime.js`: controla o runtime da aplicação.
+* `dependency-container.js`: centraliza dependências e serviços.
+* `lifecycle.js`: trata eventos de ciclo de vida.
+* `module-loader.js`: carrega módulos dinamicamente.
+* `route-engine.js`: resolve a navegação.
+* `router.js`: troca telas e módulos.
+* `startup-manager.js`: coordena a inicialização.
+* `state-manager.js`: controla o estado global.
+
+Esses arquivos trabalham juntos para montar a base da aplicação antes de qualquer tela ser renderizada.
+
+`web/domain/`
+
+A pasta `web/domain/` contém a lógica funcional do frontend. Ela fica acima dos módulos visuais e abaixo do núcleo de inicialização.
+
+`accessibility/`
+
+Gerencia regras ligadas à acessibilidade.
+
+* `contrast.manager.js`: controle de contraste.
+* `font.manager.js`: controle de tamanho de fonte.
+* `theme.manager.js`: troca e controle de temas.
+
+`api/`
+
+Define as interfaces de comunicação com o backend.
+
+* `auth.api.js`: autenticação.
+* `emergency.api.js`: ações de emergência.
+* `form.api.js`: formulários.
+* `purchase.api.js`: compras ou pagamentos.
+* `user.api.js`: dados do usuário.
+
+`auth/`
+
+Regras de autenticação no frontend.
+
+* `login.domain.js`: comportamento do login.
+* `permission.domain.js`: permissões.
+* `token.domain.js`: tratamento de token.
+
+`device/`
+
+Funções ligadas aos recursos do dispositivo.
+
+* `battery.device.js`: bateria.
+* `camera.device.js`: câmera.
+* `geolocation.device.js`: localização.
+* `notification.device.js`: notificações.
+* `vibration.device.js`: vibração.
+
+`realtime/`
+
+Lógica de tempo real.
+
+* `presence.manager.js`: presença online.
+* `reconnect.strategy.js`: reconexão.
+* `socket.client.js`: cliente socket.
+* `socket.events.js`: eventos socket.
+
+`storage/`
+
+Armazenamento local no navegador.
+
+* `cache.storage.js`: cache.
+* `local.storage.js`: dados locais.
+* `offline.queue.js`: fila offline.
+* `session.storage.js`: sessão temporária.
+
+`sync/`
+
+Sincronização entre frontend e backend.
+
+* `conflict.resolver.js`: resolução de conflitos.
+* `sync.manager.js`: gerenciador de sincronização.
+* `sync.queue.js`: fila de sincronização.
+
+`validators/`
+
+Validações no frontend.
+
+* `auth.validator.js`: valida login.
+* `emergency.validator.js`: valida campos de emergência.
+* `form.validator.js`: valida formulários.
+
+Essa camada reduz erros antes de enviar dados ao servidor.
+
+`web/modules/`
+
+Os módulos representam as áreas funcionais do sistema. Cada módulo funciona como uma seção da aplicação, com sua própria interface, lógica e estado.
+
+`auth/`
+
+Módulo de autenticação.
+
+* `auth.routes.js`: rotas do módulo.
+* `login.controller.js`: controla eventos da tela.
+* `login.domain.js`: regras do login.
+* `login.state.js`: estado da tela.
+* `login.style.css`: estilo visual.
+* `login.view.html`: estrutura da tela.
+
+`dashboard/`
+
+Painel principal do usuário.
+
+* `dashboard.controller.js`
+* `dashboard.domain.js`
+* `dashboard.routes.js`
+* `dashboard.state.js`
+* `dashboard.style.css`
+* `dashboard.view.html`
+
+`elderly-care/`
+
+Área voltada ao cuidado com o idoso.
+
+* `elderly-care.controller.js`
+* `elderly-care.domain.js`
+* `elderly-care.state.js`
+* `elderly-care.style.css`
+* `elderly-care.view.html`
+
+`emergency/`
+
+Módulo de emergência.
+
+* `emergency.controller.js`
+* `emergency.domain.js`
+* `emergency.state.js`
+* `emergency.style.css`
+* `emergency.view.html`
+
+`forms/`
+
+Módulo de formulários.
+
+* `forms.controller.js`
+* `forms.domain.js`
+* `forms.state.js`
+* `forms.style.css`
+* `forms.view.html`
+
+`home/`
+
+Tela inicial da aplicação.
+
+* `home.controller.js`
+* `home.domain.js`
+* `home.routes.js`
+* `home.state.js`
+* `home.style.css`
+* `home.view.html`
+
+`settings/`
+
+Configurações do usuário.
+
+* `settings.controller.js`
+* `settings.domain.js`
+* `settings.state.js`
+* `settings.style.css`
+* `settings.view.html`
+
+`store/`
+
+Módulo de loja ou catálogo.
+
+* `store.controller.js`
+* `store.domain.js`
+* `store.state.js`
+* `store.style.css`
+* `store.view.html`
+
+Cada módulo conversa com o `router`, com os componentes compartilhados e, quando necessário, com o backend.
+
+`web/styles/`
+
+Essa pasta contém toda a identidade visual da aplicação.
+
+`base/`
+
+Base global de estilos.
+
+* `accessibility.css`: foco, contraste e acessibilidade.
+* `animations.css`: animações.
+* `global.css`: estilos globais.
+* `reset.css`: normalização de estilos do navegador.
+* `typography.css`: tipografia.
+* `variables.css`: variáveis CSS.
+
+`layout/`
+
+Estrutura visual da interface.
+
+* `container.css`: containers.
+* `grid.css`: grades.
+* `navigation.css`: navegação.
+* `responsive.css`: adaptação a telas diferentes.
+* `spacing.css`: espaçamentos.
+
+`themes/`
+
+Temas visuais.
+
+* `contrast.theme.css`: alto contraste.
+* `dark.theme.css`: tema escuro.
+* `light.theme.css`: tema claro.
+
+Esses arquivos trabalham junto com `theme.manager.js` para mudar a aparência do sistema.
+
+`web/tests/`
+
+A pasta de testes do frontend valida a qualidade da aplicação.
+
+* `e2e/`: testes completos de fluxo.
+* `integration/`: testes entre módulos.
+* `unit/`: testes isolados de funções e componentes.
+
+Como as partes se relacionam
+
+O projeto funciona em camadas conectadas.
+
+* `index.html` abre a aplicação.
+* `web/core/app.js` inicia o sistema.
+* `startup-manager.js` organiza a inicialização.
+* `router.js` escolhe o módulo correto.
+* `web/modules/` monta as telas.
+* `web/common/` fornece componentes e funções reutilizáveis.
+* `web/domain/` guarda a lógica que os módulos usam.
+* `web/config/` define regras e parâmetros gerais.
+* `server/` processa dados, regras, segurança e sincronização.
+* `docs/` registra tudo.
+* `scripts/` automatiza tarefas de suporte.

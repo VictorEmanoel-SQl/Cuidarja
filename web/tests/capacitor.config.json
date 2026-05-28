@@ -1,0 +1,10 @@
+{
+  "appId": "com.cuidarja.app",
+  "appName": "Cuidar Já",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false
+    }
+  }
+}
