@@ -1,0 +1,77 @@
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70vh;
+  background: var(--cor-do-header);
+  z-index: 10;
+  transform: translateY(-60vh);
+  transition: transform 0.6s ease;
+  padding: clamp(1rem, 2.8vh, 2.5rem);
+  box-shadow: 0 0.4rem 0.8rem var(--sombra-do-header);
+  will-change: transform;
+}
+
+header h1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--branco);
+  text-shadow: 0.1rem 0.1rem 0.1rem var(--preto);
+  font-size: clamp(2.2rem, 12.5vw, 4.5rem);
+}
+
+.navegacao-principal {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1.86vh, 1.5rem);
+  margin-top: clamp(1rem, 3vh, 3rem);
+}
+
+.puxador {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--cor-do-header);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 11;
+  width: var(--tamanho-puxador);
+  aspect-ratio: 1;
+  bottom: calc(var(--tamanho-puxador) / -2);
+  font-size: calc(var(--tamanho-puxador) * 0.4);
+}
+
+.puxador::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  box-shadow: 0 0.4rem 0.8rem var(--sombra-do-puxador); 
+  z-index: -1;
+  clip-path: polygon(-100% 50%, 200% 50%, 200% 200%, -100% 200%);
+}
+
+.puxador::after {
+  content: "\25BC";
+  color: var(--branco);
+  position: relative;
+}
+
+.sobreposicao {
+  position: fixed;
+  inset: 0;
+  background: var(--sobreposicao);
+  opacity: 0;
+  pointer-events: none;
+  transition: .9s;
+  z-index: 5;
+}
+
+.sobreposicao.ativa {
+  opacity: 1;
+  pointer-events: all;
+}

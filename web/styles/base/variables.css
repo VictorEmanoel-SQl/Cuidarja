@@ -1,30 +1,23 @@
 :root {
   color-scheme: light dark;
-
-  /*------------------------------CORES-PRINCIPAIS------------------------------*/
+  
+  /* CORES PRINCIPAIS */
   --cor-da-secao: light-dark(#f5ebeb, #1C1C1E);
   --cor-dos-titulos: light-dark(#333, #F2F2F7);
   --preto: black;
   --branco: white;
-  /*------------------------------CORES-PRINCIPAIS------------------------------*/
-
   
-  /*------------------------------HEADER------------------------------*/
+  /* HEADER */
   --cor-do-header: #66d7eb;
   --sombra-do-header: rgba(0,0,0,0.18);
   --sobreposicao: rgba(0,0,0,0.3);
   --sombra-do-puxador: rgba(0,0,0,0.22);
   --cor-navegacao-principal-button: #ffffffaa;
-  /*------------------------------HEADER------------------------------*/
-
-
-  /*------------------------------PAGINAÇÃO------------------------------*/
+  
+  /* PAGINACAO */
   --sombra-da-paginacao: rgba(0,0,0,0.3);
   --cor-dos-circulos: #bbb;
-  /*------------------------------PAGINAÇÃO------------------------------*/
-
   
-  /*------------------------------TAMANHOS------------------------------*/
+  /* TAMANHOS */
   --tamanho-puxador: clamp(3.8rem, 20.8vw, 6rem);
-  /*------------------------------TAMANHOS------------------------------*/
 }

@@ -1,33 +1,58 @@
-<div class="sobreposicao" id="sobreposicao"></div>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>HOME - CuidarJá</title>
 
-<header id="cabecalho">
-  <h1>CuidarJá</h1>
-  <nav class="navegacao-principal" aria-label="Menu Principal">
-    <hr />
-    <button><a href="./" class="link" draggable="false">conta</a></button>
-    <button><a href="./" class="link" draggable="false">configurações</a></button>
-    <button><a href="./" class="link" draggable="false">perfil hospitalar</a></button>
-    <button><a href="./" class="link" draggable="false">loja</a></button>
-    <button><a href="./" class="link" draggable="false">agradecimentos</a></button>
-  </nav>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
   
-  <div class="puxador"></div>
-</header>
+  <link rel="stylesheet" href="common/button/button.css">
+  <link rel="stylesheet" href="common/header/header.css">
+  <link rel="stylesheet" href="common/pagination/pagination.css">
+  
+  <link rel="stylesheet" href="modules/home/home.css">
+</head>
+<body>
 
-<main id="telas">
-  <section>
-    <h2>GID</h2>
-  </section>
-  <section>
-    <h2>Guia</h2>
-  </section>
-  <section>
-    <h2>CID</h2>
-  </section>
-</main>
+  <div class="sobreposicao" id="sobreposicao"></div>
+  <header id="cabecalho">
+    <h1>CuidarJá</h1>
+    <nav class="navegacao-principal" aria-label="Menu Principal">
+      <hr />
+      <button><a href="./" class="link" draggable="false">conta</a></button>
+      <button><a href="./" class="link" draggable="false">configurações</a></button>
+      <button><a href="./" class="link" draggable="false">perfil hospitalar</a></button>
+      <button><a href="./" class="link" draggable="false">loja</a></button>
+      <button><a href="./" class="link" draggable="false">agradecimentos</a></button>
+    </nav>
+    <div class="puxador"></div>
+  </header>
 
-<nav class="paginacao" id="paginacao" aria-label="Paginação de telas">
-  <span></span>
-  <span class="ativo"></span>
-  <span></span>
-</nav>
+  <main id="telas">
+    <section>
+      <h2>GID</h2>
+    </section>
+    <section>
+      <h2>Guia</h2>
+    </section>
+    <section>
+      <h2>CID</h2>
+    </section>
+  </main>
+
+  <nav class="paginacao" id="paginacao" aria-label="Paginação de telas">
+    <span></span>
+    <span class="ativo"></span>
+    <span></span>
+  </nav>
+
+  <script src="core/app.js" defer></script>
+
+  <script src="common/header/header.js" defer></script>
+  <script src="modules/home/home.js" defer></script>
+
+</body>
+</html>

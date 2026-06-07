@@ -13,10 +13,16 @@ section {
   justify-content: center;
 }
 
-section:nth-child(1) { background: var(--cor-da-secao); }
-section:nth-child(2) { background: var(--cor-da-secao); }
-section:nth-child(3) { background: var(--cor-da-secao); }
+section:nth-child(1),
+section:nth-child(2),
+section:nth-child(3) {
+  background: var(--cor-da-secao);
+}
 
+section h2 {
+  font-size: clamp(3rem, 16.6vw, 7rem); 
+  color: var(--cor-dos-titulos);
+}
 header {
   position: fixed;
   top: 0;
