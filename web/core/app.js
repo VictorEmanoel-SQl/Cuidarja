@@ -36,4 +36,3 @@ const app = new Application();
 window.addEventListener('DOMContentLoaded', () => {
     app.init();
 });
->>>>>>> ff197c2f67d03e44d182fe6d3e43c148a29d0128
