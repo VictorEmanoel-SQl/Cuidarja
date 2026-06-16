@@ -1,40 +1,41 @@
-import { buscar_Cuidador } from './device.registry.js';
-import { adicionar_Na_Fila } from './notification.queue.js';
+import { notificationTemplates } from './notification.templates.js';
+import { oneSignalClient } from './onesignal.client.js';
+import { deviceRegistry } from './device.registry.js';
 
-/**
- * @param {string} idIdoso 
- * @param {string} mensagem 
- */
-export async function enviar_Notificacao_EM(idIdoso, mensagem) {
-  try {
-    console.log(`[SERVIÇO - notification.service] Iniciando processo de alerta para o idoso: ${idIdoso}`);
+class NotificationService {
+    async enviarChamado(idIdoso, nomeIdoso, bdConexao) {
+        try {
+            const buscarIdCuidador = await deviceRegistry.obterCuidadorVinculado(idIdoso, bdConexao);
+            
+            if (!buscarIdCuidador) {
+                throw new Error("Nenhum cuidador vinculado a este dispositivo.");
+            }
 
-    const dispositivoCuidador = await buscar_Cuidador(idIdoso);
+            const dadosNotificacao = notificationTemplates.idosoChamar(nomeIdoso);
+            return await oneSignalClient.sendPush(buscarIdCuidador, dadosNotificacao);
 
-    if (!dispositivoCuidador || dispositivoCuidador.length === 0) {
-      console.warn(`[SERVIÇO] Nenhum cuidador encontrado para o idoso ${idIdoso}. Colocando na fila geral.`);
-      await adicionar_Na_Fila({ destino: "Geral", mensagem });
-      return { success: false, status: "Nenhum cuidador vinculado, alerta enviado para a fila." };
+        } catch (error) {
+            console.error(`[Erro de interface] Chamado NÃO enviada. Motivo: ${error.message}`);
+            throw new Error("Não foi possível enviar o chamado. Verifique sua conexão com a internet.");
+        }
     }
 
-    const tokenDestino = dispositivoCuidador[0]; 
-    console.log(`[SERVIÇO] Dispositivo do cuidador localizado: ${tokenDestino}`);
+    async enviarEmergencia(idIdoso, nomeIdoso, bdConexao) {
+        try {
+            const buscarIdCuidador = await deviceRegistry.obterCuidadorVinculado(idIdoso, bdConexao);
+            
+            if (!buscarIdCuidador) {
+                throw new Error("Nenhum cuidador vinculado para emergências.");
+            }
 
-    console.log(`[ENVIO] Enviando mensagem: "${mensagem}" para o token: ${tokenDestino}`);
-    
-    const envioSucesso = true; 
+            const dadosNotificacao = notificationTemplates.idosoEmergencia(nomeIdoso);
+            return await oneSignalClient.sendPush(buscarIdCuidador, dadosNotificacao);
 
-    if (envioSucesso) {
-      return { success: true, status: "Notificação entregue ao cuidador com sucesso!" };
-    } else {
-      throw new Error("Falha na rede ao tentar entregar a notificação.");
+        } catch (error) {
+            console.error(`[Erro Crítico de interface] Emergência NÃO enviada. Motivo: ${error.message}`);
+            throw new Error("ALERTA DE EMERGÊNCIA NÃO ENVIADO! Verifique sua conexão imediatamente!");
+        }
     }
-
-  } catch (error) {
-    console.error("[SERVIÇO] Erro no fluxo de envio, jogando para a fila de segurança:", error);
-    
-    await adicionar_Na_Fila({ destino: idIdoso, mensagem });
-    
-    return { success: false, status: "Salvo na fila devido a um erro no envio." };
-  }
 }
+
+export const notificationService = new NotificationService();
