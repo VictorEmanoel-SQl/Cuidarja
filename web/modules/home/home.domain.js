@@ -1,35 +1,36 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const telas = document.getElementById("telas");
-  const indicadores = document.querySelectorAll("#paginacao span");
-
-  let indiceAtual = 1;
-  let posicaoXInicial = 0;
-
-  // Inicia na tela central
-  telas.style.transform = `translateX(-100vw)`;
-
-  telas.ontouchstart = e => {
-    // Checagem segura caso o menu exista e esteja aberto
-    const sobreposicao = document.getElementById("sobreposicao");
-    if(sobreposicao && sobreposicao.classList.contains('ativa')) return;
+export function calcularProximoIndice(posicaoXInicial, posicaoXFinal, indiceAtual, totalIndicadores) {
+    const distanciaX = posicaoXInicial - posicaoXFinal;
     
-    posicaoXInicial = e.touches[0].clientX;
-  };
-
-  telas.ontouchend = e => {
-    const sobreposicao = document.getElementById("sobreposicao");
-    if(sobreposicao && sobreposicao.classList.contains('ativa')) return;
-
-    const distanciaX = posicaoXInicial - e.changedTouches[0].clientX;
-    
-    indiceAtual += distanciaX > 50 && indiceAtual < indicadores.length - 1 ? 1 : 
-                   distanciaX < -50 && indiceAtual > 0 ? -1 : 0;
-
-    telas.style.transform = `translateX(${-indiceAtual * 100}vw)`;
-    
-    indicadores.forEach(indicador => indicador.classList.remove("ativo"));
-    if(indicadores[indiceAtual]) {
-      indicadores[indiceAtual].classList.add("ativo");
+    if (distanciaX > 50 && indiceAtual < totalIndicadores - 1) {
+        return indiceAtual + 1;
     }
-  };
-});
+    if (distanciaX < -50 && indiceAtual > 0) {
+        return indiceAtual - 1;
+    }
+    
+    return indiceAtual;
+}
+
+export function calcularDeslocamentoCabecalho(posicaoYInicial, posicaoYAtual, menuAberto, alturaJanela) {
+    const distanciaY = posicaoYAtual - posicaoYInicial;
+    const deslocamentoVh = (distanciaY / alturaJanela) * 100;
+
+    if (menuAberto) {
+        return Math.max(-60, Math.min(0, deslocamentoVh));
+    } else {
+        return Math.max(-60, Math.min(0, -60 + deslocamentoVh));
+    }
+}
+
+export function determinarEstadoFinalMenu(posicaoYInicial, posicaoYFinal, menuAberto) {
+    const distanciaY = posicaoYFinal - posicaoYInicial;
+
+    if (!menuAberto && distanciaY > 100) {
+        return true;
+    }
+    if (menuAberto && distanciaY < -100) {
+        return false;
+    }
+
+    return menuAberto;
+}

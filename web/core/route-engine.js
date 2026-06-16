@@ -5,7 +5,9 @@ class RouteEngine {
 
     init() {
         console.log("RouteEngine: Motor de rotas inicializado.");
-        window.addEventListener('popstate', () => this.handleRouting());
+        
+        window.addEventListener('hashchange', () => this.handleRouting());
+        
         this.handleRouting();
     }
 
@@ -14,21 +16,24 @@ class RouteEngine {
         console.log(`Rota requisitada: ${path}`);
         
         const appContainer = document.getElementById('app');
-        if (!appContainer) return;
+        if (!appContainer) {
+            console.error("Erro: Elemento container '#app' não foi encontrado no HTML.");
+            return;
+        }
 
         if (path === '#/home' || path === '#/') {
             console.log("Conectando o núcleo à pasta 'home'...");
             try {
-                await import('../modules/home/home.routes.js');
+                const moduloHome = await import('../modules/home/home.routes.js');
             } catch (error) {
                 console.error("Erro ao renderizar o front da pasta home:", error);
+                appContainer.innerHTML = `<p style="color: red;">Erro ao carregar a página inicial.</p>`;
             }
         }
     }
 
     navigate(path) {
         window.location.hash = path;
-        this.handleRouting();
     }
 }
 
