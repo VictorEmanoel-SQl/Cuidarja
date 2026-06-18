@@ -1,6 +1,6 @@
+//conexão com OneSingnal e envio de notificação
 import { modelosDeNotificacao } from './notification.templates.js';
 
-// INPUTS E BOTÕES DE CONFIRMAÇÃO
 class OneSignalClient {
     constructor() {
         this.appId = "151a863e-5379-42a2-91e8-1fd7d099643f"; 

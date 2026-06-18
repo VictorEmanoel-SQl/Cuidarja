@@ -1,3 +1,4 @@
+//gerador de IDs e registro no BD
 class DeviceRegistry {
     /**
      * @returns {string} 
@@ -17,7 +18,7 @@ class DeviceRegistry {
 
     async vincularDispositivos(idIdoso, idCuidador, conexaoBD) {
         try {
-            console.log(`[OneSignal/DB] Iniciando vínculo de 8 dígitos: ${idIdoso} ↔ ${idCuidador}`);
+            console.log(`[OneSignal/DB] Iniciando vínculo dos ids: ${idIdoso} ↔ ${idCuidador}`);
             console.log("Dispositivos vinculados com sucesso!");
             
             return { sucesso: true, mensagem: "Conexão de 8 dígitos estabelecida." };

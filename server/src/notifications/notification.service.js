@@ -1,3 +1,5 @@
+//processo de identificar o idoso e achar o cuidador vinculdo
+
 import { modelosDeNotificacao } from './notification.templates.js';
 import { clienteOneSignal } from './onesignal.client.js';
 import { registroDeDispositivos } from './device.registry.js';

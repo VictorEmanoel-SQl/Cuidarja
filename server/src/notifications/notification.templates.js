@@ -1,3 +1,4 @@
+//templates de notificação
 class NotificationTemplates {
     idosoChamar(nomeIdoso) {
         return {

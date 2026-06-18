@@ -1,4 +1,5 @@
-export function iniciarConexaoOneSignal() {
+// processor de conectar e gerar os Ids dos usuários
+export function conexaoOneSignal() {
     const botaoGerar = document.getElementById("BotaoGerarID");
     const inputReceber = document.getElementById("InputReceberID");
     const inputEscrever = document.getElementById("InputEscreverID");
