@@ -1,6 +1,6 @@
-// INPUTS E BOTÕES DE CONFIRMAÇÃO
-import { notificationTemplates } from './notification.templates.js';
+import { modelosDeNotificacao } from './notification.templates.js';
 
+// INPUTS E BOTÕES DE CONFIRMAÇÃO
 class OneSignalClient {
     constructor() {
         this.appId = "151a863e-5379-42a2-91e8-1fd7d099643f"; 
@@ -8,11 +8,7 @@ class OneSignalClient {
         this.apiUrl = "https://onesignal.com/api/v1/notifications";
     }
 
-    /**
-     * @param {string} idDestinatario 
-     * @param {object} dadosNotificacao 
-     */
-    async sendPush(idDestinatario, dadosNotificacao) {
+    async enviarPush(idDestinatario, dadosNotificacao) {
         const requisicao = {
             app_id: this.appId,
             include_subscription_ids: [idDestinatario], 
@@ -37,7 +33,7 @@ class OneSignalClient {
     }
 }
 
-export const oneSignalClient = new OneSignalClient();
+export const clienteOneSignal = new OneSignalClient();
 
 //BOTÕES DE NOTIFICAÇÃO
 export function inicializarBotoesNotificacao() {
@@ -49,7 +45,7 @@ export function inicializarBotoesNotificacao() {
     if (botaoChamar && inputIdDestinatario) {
         botaoChamar.addEventListener('click', async () => {
             const idDestinatario = inputIdDestinatario.value.trim();
-            const nomeIdoso = "NomeDoIdoso"; // Ficará dinâmico depois
+            const nomeIdoso = "NomeDoIdoso";
 
             if (!idDestinatario) {
                 alert("Por favor, conecte o dispositivo do parceiro primeiro!");
@@ -57,8 +53,8 @@ export function inicializarBotoesNotificacao() {
             }
 
             try {
-                const template = notificationTemplates.idosoChamar(nomeIdoso);
-                await oneSignalClient.sendPush(idDestinatario, template);
+                const modelo = modelosDeNotificacao.idosoChamar(nomeIdoso);
+                await clienteOneSignal.enviarPush(idDestinatario, modelo);
                 alert("Chamada enviada com sucesso!");
             } catch (erro) {
                 console.error(erro);
@@ -79,8 +75,8 @@ export function inicializarBotoesNotificacao() {
             }
 
             try {
-                const template = notificationTemplates.idosoEmergencia(nomeIdoso);
-                await oneSignalClient.sendPush(idDestinatario, template);
+                const modelo = modelosDeNotificacao.idosoEmergencia(nomeIdoso);
+                await clienteOneSignal.enviarPush(idDestinatario, modelo);
                 alert("Alerta de emergência disparado!");
             } catch (erro) {
                 console.error(erro);

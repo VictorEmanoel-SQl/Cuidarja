@@ -22,4 +22,4 @@ class NotificationTemplates {
     }
 }
 
-export const notificationTemplates = new NotificationTemplates();
+export const modelosDeNotificacao = new NotificationTemplates();

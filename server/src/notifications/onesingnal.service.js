@@ -1,4 +1,4 @@
-export function initOneSignalConnection() {
+export function iniciarConexaoOneSignal() {
     const botaoGerar = document.getElementById("BotaoGerarID");
     const inputReceber = document.getElementById("InputReceberID");
     const inputEscrever = document.getElementById("InputEscreverID");
@@ -11,10 +11,10 @@ export function initOneSignalConnection() {
             await window.OneSignal.Deferred.push(async () => {
                 await window.OneSignal.User.PushSubscription.optIn();
                 
-                const subscriptionId = window.OneSignal.User.PushSubscription.id;
+                const idInscricao = window.OneSignal.User.PushSubscription.id;
                 
-                if (subscriptionId) {
-                    inputReceber.value = subscriptionId;
+                if (idInscricao) {
+                    inputReceber.value = idInscricao;
                 } else {
                     alert("Permissão concedida, mas o ID ainda está sendo gerado. Clique novamente em instantes.");
                 }
