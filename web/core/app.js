@@ -3,8 +3,8 @@ document.addEventListener('touchstart', e => e.touches.length > 1 && e.preventDe
 document.addEventListener('touchend', e => (performance.now() - last < 300) ? e.preventDefault() : last = performance.now());
 
 import { startupManager } from './startup-manager.js';
-import { moduleLoader } from './module-loader.js';
-import { routeEngine } from './route-engine.js';
+import { carregadorDosModulos } from './module-loader.js'; 
+import { motorDeRotas } from './route-engine.js'; 
 
 class Application {
     async init() {
@@ -15,12 +15,12 @@ class Application {
                 await startupManager.init();
             }
 
-            if (moduleLoader && typeof moduleLoader.loadModules === 'function') {
-                await moduleLoader.loadModules();
+            if (carregadorDosModulos && typeof carregadorDosModulos.carregarModulos === 'function') {
+                await carregadorDosModulos.carregarModulos();
             }
 
-            if (routeEngine && typeof routeEngine.init === 'function') {
-                routeEngine.init();
+            if (motorDeRotas && typeof motorDeRotas.init === 'function') {
+                motorDeRotas.init();
             }
 
             console.log("CuidarJá: Sistema rodando com sucesso!");

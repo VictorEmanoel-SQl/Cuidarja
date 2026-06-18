@@ -1,13 +1,14 @@
-import { moduleLoader } from './module-loader.js';
-import { routeEngine } from './route-engine.js';
+import { carregadorDosModulos } from './module-loader.js'; 
+import { motorDeRotas } from './route-engine.js'; 
 
 class StartupManager {
     async init() {
         console.log("StartupManager: Iniciando a engrenagem principal do CuidarJá...");
         try {
-            await moduleLoader.loadModules();
+            await carregadorDosModulos.carregarModulos();
             
-            routeEngine.init();
+
+            motorDeRotas.init();
             
             console.log("CuidarJá inicializado com sucesso!");
         } catch (error) {

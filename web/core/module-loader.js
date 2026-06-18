@@ -1,26 +1,26 @@
 class ModuleLoader {
     constructor() {
-        this.modules = ['auth', 'dashboard', 'elderly-care', 'emergency', 'settings'];
+        this.modulos = ['auth', 'dashboard', 'elderly-care', 'emergency', 'settings'];
     }
 
-    async loadModules() {
+    async carregarModulos() {
         console.log("ModuleLoader: Carregando módulos do sistema...");
         
-        for (const moduleName of this.modules) {
+        for (const nomeModulo of this.modulos) {
             try {
-                const modulePath = `../modules/${moduleName}/${moduleName}.routes.js`;
+                const caminhoModulo = `../modules/${nomeModulo}/${nomeModulo}.routes.js`;
                 
-                let currentPath = modulePath;
-                if (moduleName === 'home') currentPath = `../modules/home/home.routes.js`;
+                let caminhoAtual = caminhoModulo;
+                if (nomeModulo === 'home') caminhoAtual = `../modules/home/home.routes.js`;
                 
-                console.log(`|── Módulo [${moduleName}] detectado.`);
+                console.log(`|── Módulo [${nomeModulo}] detectado.`);
                 
             } catch (error) {
-                console.warn(`Não foi possível carregar o arquivo de rotas do módulo: ${moduleName}`);
+                console.warn(`Não foi possível carregar o arquivo de rotas do módulo: ${nomeModulo}`);
             }
         }
         return true;
     }
 }
 
-export const moduleLoader = new ModuleLoader();
+export const carregadorDosModulos = new ModuleLoader();
