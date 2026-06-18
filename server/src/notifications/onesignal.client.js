@@ -1,19 +1,21 @@
+// INPUTS E BOTÕES DE CONFIRMAÇÃO
+import { notificationTemplates } from './notification.templates.js';
+
 class OneSignalClient {
     constructor() {
-        // Credenciais do projeto no OneSignal (A equipe vai preencher com as chaves reais do painel)
-        this.appId = "SEU_ONESIGNAL_APP_ID_AQUI"; 
-        this.apiKey = "SUA_REST_API_KEY_AQUI";
+        this.appId = "151a863e-5379-42a2-91e8-1fd7d099643f"; 
+        this.apiKey = "iefw643o2e3pf4shczaccodw6";
         this.apiUrl = "https://onesignal.com/api/v1/notifications";
     }
 
     /**
-     * @param {string} idCuidador 
+     * @param {string} idDestinatario 
      * @param {object} dadosNotificacao 
      */
-    async sendPush(idCuidador, dadosNotificacao) {
+    async sendPush(idDestinatario, dadosNotificacao) {
         const requisicao = {
             app_id: this.appId,
-            include_player_ids: [idCuidador], 
+            include_subscription_ids: [idDestinatario], 
             ...dadosNotificacao 
         };
 
@@ -36,3 +38,54 @@ class OneSignalClient {
 }
 
 export const oneSignalClient = new OneSignalClient();
+
+//BOTÕES DE NOTIFICAÇÃO
+export function inicializarBotoesNotificacao() {
+    const botaoChamar = document.getElementById('BotaoChamarID');
+    const botaoEmergencia = document.getElementById('BotaoEmergenciaID');
+    const inputIdDestinatario = document.getElementById('InputEscreverID');
+
+    // Botão Chamar
+    if (botaoChamar && inputIdDestinatario) {
+        botaoChamar.addEventListener('click', async () => {
+            const idDestinatario = inputIdDestinatario.value.trim();
+            const nomeIdoso = "NomeDoIdoso"; // Ficará dinâmico depois
+
+            if (!idDestinatario) {
+                alert("Por favor, conecte o dispositivo do parceiro primeiro!");
+                return;
+            }
+
+            try {
+                const template = notificationTemplates.idosoChamar(nomeIdoso);
+                await oneSignalClient.sendPush(idDestinatario, template);
+                alert("Chamada enviada com sucesso!");
+            } catch (erro) {
+                console.error(erro);
+                alert("Erro ao enviar chamada.");
+            }
+        });
+    }
+
+    // Botão Emergência
+    if (botaoEmergencia && inputIdDestinatario) {
+        botaoEmergencia.addEventListener('click', async () => {
+            const idDestinatario = inputIdDestinatario.value.trim();
+            const nomeIdoso = "NomeDoIdoso";
+
+            if (!idDestinatario) {
+                alert("Por favor, conecte o dispositivo do parceiro primeiro!");
+                return;
+            }
+
+            try {
+                const template = notificationTemplates.idosoEmergencia(nomeIdoso);
+                await oneSignalClient.sendPush(idDestinatario, template);
+                alert("Alerta de emergência disparado!");
+            } catch (erro) {
+                console.error(erro);
+                alert("Erro ao disparar emergência.");
+            }
+        });
+    }
+}

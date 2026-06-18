@@ -5,9 +5,7 @@ class RouteEngine {
 
     init() {
         console.log("RouteEngine: Motor de rotas inicializado.");
-        
         window.addEventListener('hashchange', () => this.handleRouting());
-        
         this.handleRouting();
     }
 
