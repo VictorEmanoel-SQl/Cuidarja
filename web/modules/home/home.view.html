@@ -2,57 +2,492 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="color-scheme" content="light dark">
-  <title>HOME - CuidarJá</title>
+  <title>HOME</title>
 
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/reset.css">
-  
-  <link rel="stylesheet" href="common/button/button.css">
-  <link rel="stylesheet" href="common/header/header.css">
-  <link rel="stylesheet" href="common/pagination/pagination.css">
-  
-  <link rel="stylesheet" href="modules/home/home.css">
+  <style>
+    :root {
+      /*------------------------------CORES-PRINCIPAIS------------------------------*/
+      color-scheme: light dark;
+      --cor-da-secao: light-dark(#f5ebeb, #1C1C1E);
+      --cor-dos-titulos: light-dark(#4a4a4a, #F2F2F7);
+      --preto: black;
+      --branco: white;
+      --azul: #6fb9c6;
+      
+      /*------------------------------CABECALHO------------------------------*/
+      --cor-do-cabecalho: #6fb9c6;
+      --sombra-do-cabecalho: rgba(0, 0, 0, 0.18);
+      --sobreposicao: rgba(0, 0, 0, 0.3);
+      --sombra-do-puxador: rgba(0, 0, 0, 0.22);
+      --cor-botao-navegacao-principal: #ffffffaa;
+      
+      /*------------------------------PAGINACAO------------------------------*/
+      --sombra-da-paginacao: rgba(0, 0, 0, 0.3);
+      --cor-dos-circulos: #bbb;
+      
+      /*------------------------------TAMANHOS------------------------------*/
+      --tamanho-puxador: clamp(3.8rem, 20.8vw, 6rem);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      height: var(--altura-fixa, 100vh);
+      overflow: hidden;
+      font-family: sans-serif;
+      font-size: 16px;
+      position: relative;
+    }
+
+    main {
+      display: flex;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      flex: 0 0 100%;
+      width: 100vw;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cor-da-secao);
+    }
+
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: calc(var(--altura-fixa, 100vh) * 0.7);
+      background: var(--cor-do-cabecalho);
+      z-index: 10;
+      transform: translateY(calc(var(--altura-fixa, 100vh) * -0.6));
+      transition: transform 0.6s ease;
+      padding: clamp(1rem, calc(var(--altura-fixa, 100vh) * 0.028), 2.5rem);
+      box-shadow: 0 0.4rem 0.8rem var(--sombra-do-cabecalho);
+      will-change: transform;
+    }
+
+    .navegacao-principal {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.5rem, calc(var(--altura-fixa, 100vh) * 0.0186), 1.5rem);
+      margin-top: clamp(1rem, calc(var(--altura-fixa, 100vh) * 0.03), 3rem);
+    }
+
+    .link-menu {
+      display: block;
+      text-align: center;
+      padding: clamp(0.5rem, calc(var(--altura-fixa, 100vh) * 0.015), 1.2rem);
+      border: none;
+      border-radius: 4rem;
+      background: var(--cor-botao-navegacao-principal);
+      box-shadow: inset 0 -1px 1px var(--preto), inset 0 1px 1px var(--branco);
+      color: var(--preto);
+      font-weight: bold;
+      text-decoration: none;
+      text-shadow: 0.1px 0.1px 1px var(--preto);
+      outline: none;
+      font-size: clamp(0.85rem, 4.16vw, 1.4rem);
+    }
+
+    .link-menu:active {
+      transform: scale(0.95);
+      transition: transform 0.25s;
+      box-shadow: inset 0 -2px 2px var(--preto), inset 0 2px 2px var(--branco);
+      border: 0.1px gray solid;
+      opacity: 0.95;
+    }
+
+    /*PUXADOR*/
+    .puxador {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--cor-do-cabecalho);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 11;
+      width: var(--tamanho-puxador);
+      aspect-ratio: 1;
+      bottom: calc(var(--tamanho-puxador) / -2);
+      font-size: calc(var(--tamanho-puxador) * 0.4);
+    }
+
+    .puxador::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow: 0 0.4rem 0.8rem var(--sombra-do-puxador);
+      z-index: -1;
+      clip-path: polygon(-100% 50%, 200% 50%, 200% 200%, -100% 200%);
+    }
+
+    .puxador::after {
+      content: "\25BC";
+      color: var(--branco);
+      position: relative;
+    }
+
+    /*SOBREPOSICAO e PAGINACAO*/
+    .sobreposicao {
+      position: absolute;
+      inset: 0;
+      background: var(--sobreposicao);
+      opacity: 0;
+      pointer-events: none;
+      transition: .9s;
+      z-index: 5;
+    }
+
+    .sobreposicao.ativa {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .paginacao {
+      position: absolute;
+      bottom: clamp(1rem, calc(var(--altura-fixa, 100vh) * 0.04), 2.5rem);
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: clamp(0.5rem, 1.5vw, 0.8rem);
+      z-index: 2;
+    }
+
+    .paginacao span {
+      width: clamp(0.5rem, 3.6vw, 1rem);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--cor-dos-circulos);
+      transition: all 0.4s ease;
+    }
+
+    .paginacao .ativo {
+      background: var(--branco);
+      width: clamp(0.65rem, 3.75vw, 1.2rem);
+      box-shadow: 0px 0px 3px var(--sombra-da-paginacao);
+    }
+
+    h1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--branco);
+      text-shadow: 0.1rem 0.1rem 0.1rem var(--preto);
+      font-size: clamp(2.2rem, 12.5vw, 4.5rem);
+    }
+
+    /*SECOES*/
+    .conteudo-centralizado {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 85%;
+      max-width: 400px;
+    }
+
+    .titulo-tela {
+      font-size: clamp(3.5rem, 15vw, 5.5rem);
+      color: var(--cor-dos-titulos);
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+
+    .texto-instrucao {
+      font-size: 1.1rem;
+      color: var(--cor-dos-titulos);
+      font-style: italic;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .botao-acao {
+      background-color: var(--azul);
+      color: var(--branco);
+      font-size: 1.2rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.8rem 3rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      outline: none;
+      cursor: pointer;
+      letter-spacing: 1px;
+    }
+
+    .botao-acao:active {
+      transform: scale(0.95);
+      transition: transform 0.25s;
+      box-shadow: inset 0 -2px 2px var(--preto), inset 0 2px 2px var(--branco);
+      border: 0.1px gray solid;
+      opacity: 0.95;
+    }
+
+    .caixa-output {
+      width: 100%;
+      height: 3.5rem;
+      background-color: var(--azul);
+      border-radius: 12px;
+      border: 2px solid var(--branco);
+      box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--branco);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .caixa-input {
+      width: 100%;
+      height: 3.5rem;
+      background-color: transparent;
+      border-radius: 2rem;
+      border: 1px solid #ccc;
+      padding: 0 1.5rem;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: #666;
+      margin-bottom: 1.5rem;
+      outline: none;
+    }
+
+    .caixa-input::placeholder {
+     color: #aaa;
+    }
+
+    /*CARTOES*/
+    .container-guia {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 1.2rem;
+      padding-top: clamp(4rem, 15vh, 8rem);
+      padding-bottom: 2rem;
+    }
+
+    .cartao {
+      width: 90%;
+      max-width: 380px;
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cartao-claro {
+      background-color: var(--branco);
+      color: var(--azul);
+    }
+
+    .cartao-escuro {
+      background-color: var(--azul);
+      color: var(--branco);
+    }
+
+    .titulo-cartao {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .linha-divisoria {
+      margin: 0.5rem auto 1rem;
+      width: 85%;
+      border: none;
+      border-top: 1.5px solid;
+    }
+
+    .cartao-claro .linha-divisoria { border-color: var(--azul); }
+    .cartao-escuro .linha-divisoria { border-color: var(--branco); }
+
+    .destaque-cartao {
+      font-size: 0.95rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .texto-cartao {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      opacity: 0.95;
+    }
+  </style>
 </head>
-<body>
 
+<body>
   <div class="sobreposicao" id="sobreposicao"></div>
+
   <header id="cabecalho">
     <h1>CuidarJá</h1>
     <nav class="navegacao-principal" aria-label="Menu Principal">
-      <hr />
-      <button><a href="./" class="link" draggable="false">conta</a></button>
-      <button><a href="./" class="link" draggable="false">configurações</a></button>
-      <button><a href="./" class="link" draggable="false">perfil hospitalar</a></button>
-      <button><a href="./" class="link" draggable="false">loja</a></button>
-      <button><a href="./" class="link" draggable="false">agradecimentos</a></button>
+      <a href="/conta" data-link class="link-menu" draggable="false">conta</a>
+      <a href="/configuracoes" data-link class="link-menu" draggable="false">configurações</a>
+      <a href="/perfil-hospitalar" data-link class="link-menu" draggable="false">perfil hospitalar</a>
+      <a href="/loja" data-link class="link-menu" draggable="false">loja</a>
+      <a href="/agradecimentos" data-link class="link-menu" draggable="false">agradecimentos</a>
     </nav>
     <div class="puxador"></div>
   </header>
 
   <main id="telas">
-    <section>
-      <h2>GID</h2>
+    <section id="tela-gid">
+      <div class="conteudo-centralizado">
+        <h2 class="titulo-tela" aria-label="Tela de Gerar o Identificador">GID</h2>
+        <output id="input-receber-id" class="caixa-output" aria-live="polite">opa</output>
+        <p class="texto-instrucao">Escreva o código na tela de CID.</p>
+        <button id="botao-gerar-id" class="botao-acao" aria-label="Botão para Gerar o Identificador">GERAR</button>
+      </div>
     </section>
-    <section>
-      <h2>Guia</h2>
+    
+    <section id="tela-guia">
+      <div class="container-guia">
+        <div class="cartao cartao-claro">
+          <h3 class="titulo-cartao">Explicação de GID</h3>
+          <hr class="linha-divisoria">
+          <p class="destaque-cartao">Para gerar o identificador siga os passos:</p>
+          <p class="texto-cartao">Na esquerda, fica a tela de Gerar o Identificador, responsável por conectar os dois dispositivos. Ao pressionar o botão, será gerado o identificador; copie-o, escreva-o na caixa de texto à sua direita e pressione o botão.</p>
+        </div>
+
+        <div class="cartao cartao-escuro">
+          <h3 class="titulo-cartao">Explicação de CID</h3>
+          <hr class="linha-divisoria">
+          <p class="destaque-cartao">Para colar o identificador siga os passos:</p>
+          <p class="texto-cartao">À direita, fica a tela de Colar o Identificador. Cole o identificador e pressione o botão para conectar os dispositivos. Após isso, será aberta a tela de emergência para o idoso e a de configurações para o cuidador. O dispositivo que colar o identificador será definido como o do cuidador.</p>
+        </div>
+      </div>
     </section>
-    <section>
-      <h2>CID</h2>
+    
+    <section id="tela-cid">
+      <div class="conteudo-centralizado">
+        <h2 class="titulo-tela" aria-label="Tela de Colar o Identificador">CID</h2>
+        <input type="text" pattern="[A-Za-z0-9]{6}" maxlength="6" required id="input-escrever-id" class="caixa-input" placeholder="Ex.: H7Qj43">
+        <p class="texto-instrucao">Escreva o código gerado pela tela de GID.</p>
+        <button id="botao-confirmar-id" class="botao-acao" aria-label="Botão para realizar a conexão com outro dispositivo">CONECTAR</button>
+      </div>
     </section>
   </main>
 
-  <nav class="paginacao" id="paginacao" aria-label="Paginação de telas">
+  <div class="paginacao" id="paginacao" aria-hidden="true">
     <span></span>
     <span class="ativo"></span>
     <span></span>
-  </nav>
+  </div>
 
-  <script src="core/app.js" defer></script>
+  <script>
+    const alturaFixa = window.innerHeight;
+    document.documentElement.style.setProperty('--altura-fixa', `${alturaFixa}px`);
 
-  <script src="common/header/header.js" defer></script>
-  <script src="modules/home/home.js" defer></script>
+    const telas = document.getElementById("telas"),
+          indicadores = document.querySelectorAll("#paginacao span"),
+          cabecalho = document.getElementById("cabecalho"),
+          sobreposicao = document.getElementById("sobreposicao");
 
+    let indiceAtual = 1; 
+    let posicaoXInicial = 0;
+    let posicaoYInicial = 0;
+    let menuAberto = false;
+    let emMovimento = false;
+
+    const ehInterativo = target => ['INPUT', 'BUTTON', 'A'].includes(target.tagName);
+
+    telas.style.transform = `translateX(-100vw)`;
+
+    telas.ontouchstart = e => {
+      if(menuAberto || ehInterativo(e.target)) return;
+      posicaoXInicial = e.touches[0].clientX;
+    }
+
+    telas.ontouchend = e => {
+      if(menuAberto || ehInterativo(e.target)) return;
+      
+      const dist = posicaoXInicial - e.changedTouches[0].clientX;
+      indiceAtual += dist > 50 && indiceAtual < indicadores.length - 1 ? 1 : dist < -50 && indiceAtual > 0 ? -1 : 0;
+      
+      telas.style.transition = 'transform 0.5s ease-out';
+      telas.style.transform = `translateX(${-indiceAtual * 100}vw)`;
+      indicadores.forEach((ind, idx) => ind.classList.toggle("ativo", idx === indiceAtual));
+    }
+
+    cabecalho.ontouchstart = e => {
+      if (document.activeElement.tagName === 'INPUT') document.activeElement.blur();
+      posicaoYInicial = e.touches[0].clientY;
+      emMovimento = false;
+    }
+
+    cabecalho.ontouchmove = e => {
+      const distY = e.touches[0].clientY - posicaoYInicial;
+      
+      if ((!menuAberto && distY > 0) || (menuAberto && distY < 0)) {
+        if (!emMovimento) { cabecalho.style.transition = 'none'; emMovimento = true; }
+        
+        const base = menuAberto ? 0 : (alturaFixa * -0.6);
+        const posPx = Math.max(alturaFixa * -0.6, Math.min(base + distY, 0));
+        
+        requestAnimationFrame(() => { 
+          if (emMovimento) cabecalho.style.transform = `translateY(${posPx}px)`; 
+        });
+      }
+    }
+
+    cabecalho.ontouchend = e => {
+      emMovimento = false;
+      cabecalho.style.transition = 'transform 0.6s ease';
+      void cabecalho.offsetHeight; 
+      
+      const distY = e.changedTouches[0].clientY - posicaoYInicial;
+
+      if (Math.abs(distY) < 15) menuAberto = !menuAberto;
+      else if (!menuAberto && distY > 80) menuAberto = true;
+      else if (menuAberto && distY < -80) menuAberto = false;
+
+      cabecalho.style.transform = menuAberto ? "translateY(0)" : "translateY(calc(var(--altura-fixa) * -0.6))";
+      sobreposicao.classList.toggle("ativa", menuAberto);
+    }
+
+    const fecharMenu = (e) => {
+      if (e?.cancelable) e.preventDefault();
+      cabecalho.style.transition = 'transform 0.6s ease';
+      cabecalho.style.transform = "translateY(calc(var(--altura-fixa) * -0.6))";
+      sobreposicao.classList.remove("ativa");
+      menuAberto = false;
+    }
+
+    sobreposicao.ontouchend = fecharMenu;
+    sobreposicao.onclick = fecharMenu;
+
+    let last = 0;
+    document.addEventListener('touchstart', e => {
+      if (!ehInterativo(e.target) && e.touches.length > 1) e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener('touchend', e => {
+      if(ehInterativo(e.target)) return;
+      if (performance.now() - last < 300) e.preventDefault();
+      last = performance.now();
+    });
+  </script>
 </body>
 </html>
