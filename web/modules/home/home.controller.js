@@ -7,6 +7,15 @@ import {
 
 let telas, indicadores, cabecalho, sobreposicao;
 
+function gerarCodigoSeisDigitos() {
+  const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let resultado = '';
+  for (let i = 0; i < 6; i++) {
+    resultado += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+  }
+  return resultado;
+}
+
 export function initHomeController() {
   telas = document.getElementById("telas");
   indicadores = document.querySelectorAll("#paginacao span");
@@ -15,20 +24,45 @@ export function initHomeController() {
 
   if (!telas || !cabecalho || !sobreposicao) return;
 
-  // Inicializa/Reseta o Estado
   homeState.reset();
   telas.style.transform = `translateX(-100vw)`;
 
-  // Ouvidores de Evento Horizontais
+  const botaoGerar = document.getElementById('botao-gerar-id');
+  const caixaOutputId = document.getElementById('input-receber-id');
+
+  if (botaoGerar && caixaOutputId) {
+    botaoGerar.addEventListener('click', () => {
+      const novoId = gerarCodigoSeisDigitos();
+      caixaOutputId.textContent = novoId;
+      botaoGerar.disabled = true;
+      botaoGerar.style.opacity = "0.5";
+      botaoGerar.style.cursor = "not-allowed";
+    });
+  }
+
+  const botaoConectar = document.getElementById('botao-confirmar-id');
+  const inputId = document.getElementById('input-escrever-id');
+
+  if (botaoConectar && inputId) {
+    botaoConectar.addEventListener('click', () => {
+      const idDigitado = inputId.value.trim();
+
+      if (!idDigitado || idDigitado.length !== 6) {
+        alert("Por favor, insira um código de identificação válido com 6 caracteres!");
+        return;
+      }
+
+      alert("Erro: Usuário não encontrado!");
+    });
+  }
+
   telas.addEventListener("touchstart", tratarTouchStartTelas, { passive: true });
   telas.addEventListener("touchend", tratarTouchEndTelas, { passive: true });
 
-  // Ouvidores de Evento Verticais
   cabecalho.addEventListener("touchstart", tratarTouchStartCabecalho, { passive: true });
   cabecalho.addEventListener("touchmove", tratarTouchMoveCabecalho, { passive: false });
   cabecalho.addEventListener("touchend", tratarTouchEndCabecalho, { passive: true });
 
-  // Eventos do Overlay
   sobreposicao.addEventListener("touchend", fecharMenu, { passive: false });
   sobreposicao.addEventListener("click", fecharMenu);
 }
@@ -49,8 +83,6 @@ export function destroyHomeController() {
   }
 }
 
-/* --- Handlers de Evento --- */
-
 function tratarTouchStartTelas(e) {
   if (homeState.menuAberto) return;
   homeState.posicaoXInicial = e.touches[0].clientX;
@@ -59,7 +91,6 @@ function tratarTouchStartTelas(e) {
 function tratarTouchEndTelas(e) {
   if (homeState.menuAberto) return;
 
-  // Altera o estado chamando a regra de negócio do Domain
   homeState.indiceAtual = calcularProximoIndice(
     homeState.posicaoXInicial,
     e.changedTouches[0].clientX,
@@ -67,7 +98,6 @@ function tratarTouchEndTelas(e) {
     indicadores.length
   );
 
-  // Renderiza a alteração visual baseada no novo estado
   telas.style.transform = `translateX(${-homeState.indiceAtual * 100}vw)`;
   
   indicadores.forEach(ind => ind.classList.remove("ativo"));
@@ -85,14 +115,12 @@ function tratarTouchMoveCabecalho(e) {
   const posicaoYAtual = e.touches[0].clientY;
   const distanciaY = posicaoYAtual - homeState.posicaoYInicial;
 
-  // Verifica se a direção do arrasto faz sentido para o estado do menu
   if ((!homeState.menuAberto && distanciaY > 0) || (homeState.menuAberto && distanciaY < 0)) {
     if (!homeState.emMovimento) {
       cabecalho.style.transition = 'none'; 
       homeState.emMovimento = true;
     }
 
-    // Domain calcula a posição matemática
     const posicaoVh = calcularDeslocamentoCabecalho(
       homeState.posicaoYInicial,
       posicaoYAtual,
@@ -113,14 +141,12 @@ function tratarTouchEndCabecalho(e) {
   cabecalho.style.transition = 'transform 0.6s ease';
   void cabecalho.offsetHeight; 
 
-  // Domain decide se o menu abre ou fecha de fato
   homeState.menuAberto = determinarEstadoFinalMenu(
     homeState.posicaoYInicial,
     e.changedTouches[0].clientY,
     homeState.menuAberto
   );
 
-  // Aplica o resultado final no DOM
   cabecalho.style.transform = homeState.menuAberto ? "translateY(0)" : "translateY(-60vh)";
   sobreposicao.classList.toggle("ativa", homeState.menuAberto);
 }
