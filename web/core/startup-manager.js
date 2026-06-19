@@ -5,9 +5,9 @@ class StartupManager {
     async init() {
         console.log("StartupManager: Iniciando a engrenagem principal do CuidarJá...");
         try {
+            
             await carregadorDosModulos.carregarModulos();
             
-
             motorDeRotas.init();
             
             console.log("CuidarJá inicializado com sucesso!");

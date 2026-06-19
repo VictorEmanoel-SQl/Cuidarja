@@ -4,7 +4,7 @@ class DeviceRegistry {
      * @returns {string} 
      */
     geradorIds() {
-        const tamanhoId = 8;
+        const tamanhoId = 6;
         const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         let id = '';
         
@@ -21,7 +21,7 @@ class DeviceRegistry {
             console.log(`[OneSignal/DB] Iniciando vínculo dos ids: ${idIdoso} ↔ ${idCuidador}`);
             console.log("Dispositivos vinculados com sucesso!");
             
-            return { sucesso: true, mensagem: "Conexão de 8 dígitos estabelecida." };
+            return { sucesso: true, mensagem: "Conexão estabelecida com sucesso." };
         } catch (erro) { 
             console.error("Erro ao registrar e parear dispositivos:", erro);
             return { sucesso: false, erro: erro.message };
