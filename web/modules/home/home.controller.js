@@ -5,6 +5,8 @@ import {
   determinarEstadoFinalMenu 
 } from './home.domain.js';
 
+import { iniciarMonitoramentoIdoso } from '../elderly-care/elderly-care.controller.js';
+
 let telas, indicadores, cabecalho, sobreposicao;
 
 function gerarCodigoSeisDigitos() {
@@ -53,6 +55,15 @@ export function initHomeController() {
       }
 
       alert("Erro: Usuário não encontrado!");
+    });
+  }
+
+  const botaoMapa = document.getElementById('BotaoMapa');
+  const visorMapa = document.getElementById('VisorMapa');
+
+  if (botaoMapa && visorMapa) {
+    botaoMapa.addEventListener('click', () => {
+      iniciarMonitoramentoIdoso();
     });
   }
 
