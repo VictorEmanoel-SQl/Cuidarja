@@ -1,6 +1,3 @@
-// ==========================================
-// 1. CONFIGURAÇÕES VISUAIS (TELA DE LOGIN)
-// ==========================================
 const alturaFixa = window.innerHeight;
 document.documentElement.style.setProperty('--altura-fixa', `${alturaFixa}px`);
 
@@ -143,66 +140,73 @@ const campos = {
     formLogin: document.querySelector('form[data-tipo-form="login"]'),
     formCadastro: document.querySelector('form[data-tipo-form="cadastro"]'),
     botaoSalvar: document.getElementById("SalvarDados"),
-
-    // Tela de Dados Adicionais (mantidos para as próximas etapas)
-    nomeC: document.getElementById("nome_cuidador"),
-    telefoneCuidador: document.getElementById("telefone_cuidador"),
-    nomeI: document.getElementById("nome_idoso"),
-    telefoneIdoso: document.getElementById("telefone_idoso"),
-    acessibilidade: document.getElementById("acessibilidade_idoso")
 };
 
 // Vinculação segura de Eventos de Envio diretamente nos Formulários
 if (campos.formLogin) campos.formLogin.addEventListener("submit", salvarDados);
 if (campos.formCadastro) campos.formCadastro.addEventListener("submit", salvarDados);
-if (campos.botaoSalvar) campos.botaoSalvar.addEventListener("click", salvarDados);
+//if (campos.botaoSalvar) campos.botaoSalvar.addEventListener("click", salvarDados);
 
 
 // ==========================================
 // 3. COLETA E TRATAMENTO DE DADOS CORRIGIDA
 // ==========================================
-function montarDados() {
-    const formLogin = document.querySelector('form[data-tipo-form="login"]');
-    const formCadastro = document.querySelector('form[data-tipo-form="cadastro"]');
+// ==========================================
+// 3. COLETA E TRATAMENTO DE DADOS CORRIGIDA
+// ==========================================
+function montarDados(event) {
+    // Descobre qual elemento ou formulário disparou o evento atual
+    const elementoDisparador = event?.target;
+    const formDisparador = elementoDisparador?.closest('form');
+    const tipoForm = formDisparador?.getAttribute('data-tipo-form');
 
-    // Se o botão de salvar dados finais detalhados existir
-    if (campos.botaoSalvar && document.getElementById("SalvarDados")) {
+    // 1. Se o clique veio especificamente do botão de salvar dados finais
+    if (elementoDisparador?.id === "SalvarDados" || elementoDisparador?.id === "botaoSalvar") {
         return {
             tipo: "dados_completos",
             cuidador: { nome: campos.nomeC?.value || "" }
         };
     }
 
-    // 🟢 NOVA LÓGICA: Se o campo de nome do cadastro estiver visível e preenchido, ou se o foco está no cadastro
-    // Usamos o document.activeElement para saber onde o usuário clicou ou digitou
-    const inputNomeCadastro = formCadastro?.querySelector('.input-nome');
-    
-    // Se o formulário de cadastro possui dados preenchidos, assume que é um cadastro
-    if (inputNomeCadastro && inputNomeCadastro.value !== "") {
+    // 2. Se o formulário ativo for explicitamente o de cadastro
+    if (tipoForm === "cadastro") {
         return {
             tipo: "cadastro",
             cadastro: {
-                nome: formCadastro.querySelector('.input-nome').value,
-                email: formCadastro.querySelector('.input-email').value,
-                senha: formCadastro.querySelector('.input-senha').value
+                nome: formDisparador.querySelector('.input-nome').value,
+                email: formDisparador.querySelector('.input-email').value,
+                senha: formDisparador.querySelector('.input-senha').value
             }
         };
-    } else {
-        // Caso contrário, coleta os dados de login
+    } 
+    
+    // 3. Se o formulário ativo for o de login
+    if (tipoForm === "login") {
         return {
             tipo: "login",
             login: {
-                email: formLogin.querySelector('.input-email').value,
-                senha: formLogin.querySelector('.input-senha').value
+                email: formDisparador.querySelector('.input-email').value,
+                senha: formDisparador.querySelector('.input-senha').value
             }
         };
     }
+
+    // Fallback de segurança caso disparado por enter genérico externa
+    const formLogin = document.querySelector('form[data-tipo-form="login"]');
+    return {
+        tipo: "login",
+        login: {
+            email: formLogin?.querySelector('.input-email')?.value || "",
+            senha: formLogin?.querySelector('.input-senha')?.value || ""
+        }
+    };
 }
 
 async function salvarDados(event) {
     event.preventDefault();
 
-    const dadosOriginais = montarDados();
+    // 🔥 Passamos o evento atual para o montarDados saber quem foi clicado/enviado
+    const dadosOriginais = montarDados(event); 
     let dadosFormatados = {};
 
     if (dadosOriginais.tipo === "cadastro") {
@@ -231,6 +235,10 @@ async function salvarDados(event) {
     else if (dadosOriginais.tipo === "login") url += "login";
     else if (dadosOriginais.tipo === "dados_completos") url += "dados-completos";
 
+    // Desativa o botão temporariamente para evitar cliques duplos acidentais
+    const botaoSubmit = event.target.querySelector('button[type="submit"]') || event.target;
+    if (botaoSubmit && botaoSubmit.tagName === "BUTTON") botaoSubmit.disabled = true;
+
     try {
         const resposta = await fetch(url, {
             method: "POST",
@@ -254,5 +262,8 @@ async function salvarDados(event) {
     } catch (erro) {
         console.error("Erro de conexão:", erro);
         alert("O servidor Spring Boot parece estar desligado.");
+    } finally {
+        // Reativa o botão para o usuário poder interagir novamente
+        if (botaoSubmit && botaoSubmit.tagName === "BUTTON") botaoSubmit.disabled = false;
     }
 }
