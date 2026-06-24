@@ -1,5 +1,5 @@
 package cuidarja.demo;
-public class login {
+public class Login {
     private String email;
     private String senha;
 

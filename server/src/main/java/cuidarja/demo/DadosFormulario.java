@@ -1,13 +1,13 @@
 package cuidarja.demo;
 public class DadosFormulario {
 
-    private idoso idoso;
+    private Idoso idoso;
 
-    public idoso getIdoso() {
+    public Idoso getIdoso() {
         return idoso;
     }
 
-    public void setIdoso(idoso idoso) {
+    public void setIdoso(Idoso idoso) {
         this.idoso = idoso;
     }
 }

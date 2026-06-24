@@ -1,5 +1,5 @@
 package cuidarja.demo;
-public class idoso {
+public class Idoso {
 
     private String nome;
     private String telefone;
