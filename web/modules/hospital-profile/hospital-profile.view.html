@@ -1,0 +1,109 @@
+Perfil Hospitalar:
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="color-scheme" content="light dark">
+  <title>perfil hospitalar</title>
+    <link rel="stylesheet" href="hospital-profile.style.css">
+</head>
+
+<body>
+  <div class="sobreposicao" id="sobreposicao"></div>
+
+  <header id="cabecalho">
+    <h1>CuidarJá</h1>
+    <nav class="navegacao-principal" aria-label="Menu Principal">
+      <a href="/conta" class="link-menu" draggable="false">conta</a>
+      <a href="/configuracoes" class="link-menu" draggable="false">configurações</a>
+      <a href="/perfil-hospitalar" class="link-menu" draggable="false">perfil hospitalar</a>
+      <a href="/loja" class="link-menu" draggable="false">loja</a>
+      <a href="/agradecimentos" class="link-menu" draggable="false">agradecimentos</a>
+    </nav>
+    <div class="puxador"></div>
+  </header>
+
+  <main id="telas">
+    <section id="secao-cuidador" class="secao-perfil">
+      <div class="conteudo-centralizado">
+        <h2 class="titulo-tela" aria-label="Tela de informações do cuidador">Cuidador</h2>
+        
+        <details id="detalhe-cuidador" class="cartao-details">
+          <summary>Dados do Cuidador</summary>
+          <div class="conteudo-animado">
+            <div class="wrapper-interno">
+              <form class="form-perfil" action="" method="POST">
+                <input type="text" class="full-width" id="c-nome" name="nome" placeholder="Nome Completo" inputmode="text" maxlength="100" required>
+                <input type="tel" class="full-width" id="c-tel" name="numero_telefone" placeholder="Telefone (XX) XXXXX-XXXX" inputmode="tel" maxlength="20" required>
+                
+                <input type="text" class="full-width" id="c-logradouro" name="logradouro" placeholder="Logradouro" maxlength="255">
+                <input type="number" id="c-numero" name="numero_casa" placeholder="Número" inputmode="numeric" required>
+                <input type="text" id="c-complemento" name="complemento" placeholder="Complemento" maxlength="100" required>
+                <input type="text" id="c-bairro" name="bairro" placeholder="Bairro" maxlength="50" required>
+                <input type="text" id="c-cidade" name="cidade" placeholder="Cidade" maxlength="100" required>
+                <input type="text" id="c-uf" name="UF" placeholder="UF (Ex: SP)" maxlength="2" required>
+                <input type="text" id="c-cep" name="CEP" placeholder="CEP" inputmode="numeric" maxlength="8" required>
+
+                <button type="button" class="botao-acao" id="btn-salvar-cuidador">Salvar Cuidador</button>
+              </form>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+    
+    <section id="secao-idoso" class="secao-perfil">
+      <div class="conteudo-centralizado">
+        <h2 class="titulo-tela" aria-label="Tela de informações do idoso">Idoso</h2>
+        
+        <details id="detalhe-idoso" class="cartao-details">
+          <summary>Perfil Hospitalar</summary>
+          <div class="conteudo-animado">
+            <div class="wrapper-interno">
+              <form class="form-perfil" action="" method="POST">
+                <input type="text" class="full-width" id="i-nome" name="nome" placeholder="Nome Completo" inputmode="text" maxlength="100" required>
+                <input type="tel" id="i-tel" name="numero_telefone" placeholder="Telefone" inputmode="tel" maxlength="20" required>
+                <select id="i-acessibilidade" name="acessibilidade_compra" required>
+                  <option value="" disabled selected>Acesso a Compra</option>
+                  <option value="sim">Sim</option>
+                  <option value="não">Não</option>
+                </select>
+
+                <input type="text" class="full-width" id="i-logradouro" name="logradouro" placeholder="Logradouro" maxlength="255">
+                <input type="number" id="i-numero" name="numero_casa" placeholder="Número" inputmode="numeric" required>
+                <input type="text" id="i-complemento" name="complemento" placeholder="Complemento" maxlength="30" required>
+                <input type="text" id="i-bairro" name="bairro" placeholder="Bairro" maxlength="50" required>
+                <input type="text" id="i-cidade" name="cidade" placeholder="Cidade" maxlength="100" required>
+                <input type="text" id="i-uf" name="UF" placeholder="UF" maxlength="2" required>
+                <input type="text" id="i-cep" name="CEP" placeholder="CEP" inputmode="numeric" maxlength="8" required>
+
+                <input type="text" class="full-width" id="i-emerg-nome" name="contato_emergencia_nome" placeholder="Contato de Emergência (Nome)" maxlength="100">
+                <input type="tel" id="i-emerg-tel" name="contato_emergencia_tel" placeholder="Tel Emergência" inputmode="tel" maxlength="20">
+                <input type="text" id="i-emerg-rel" name="contato_emergencia_relacao" placeholder="Relação (Ex: Filho)" maxlength="50">
+                
+                <input type="text" class="full-width" id="i-doencas" name="doencas_cronicas" placeholder="Doenças Crônicas" inputmode="text">
+                <input type="text" class="full-width" id="i-alergias" name="alergias" placeholder="Alergias" inputmode="text">
+                <input type="text" class="full-width" id="i-meds" name="medicamentos_atuais" placeholder="Medicamentos Atuais" inputmode="text">
+                <input type="text" class="full-width" id="i-cirurgias" name="cirurgias_anteriores" placeholder="Cirurgias Anteriores" inputmode="text">
+                <input type="text" class="full-width" id="i-internacoes" name="internacoes_recentes" placeholder="Internações Recentes" inputmode="text">
+                
+                <button type="button" class="botao-acao" id="btn-salvar-idoso">Salvar Dados</button>
+              </form>
+            </div>
+          </div>
+        </details>
+
+      </div>
+    </section>
+  </main>
+
+  <div class="paginacao" id="paginacao" aria-hidden="true">
+    <span class="ativo"></span>
+    <span></span>
+  </div>
+
+    <script src="hospital-profile.controller.js"></script>
+</body>
+</html>

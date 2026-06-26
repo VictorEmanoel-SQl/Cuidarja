@@ -3,7 +3,7 @@ package cuidarja.demo;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import java.util.Optional; // 🟢 IMPORTANTE: Adicionado para usar o Optional do Login
+import java.util.Optional; 
 
 @RestController 
 @RequestMapping("/api")  
@@ -16,9 +16,6 @@ public class ConexaoController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    // ==========================================
-    // ENDPOINT DE CADASTRO
-    // ==========================================
     @PostMapping("/cadastro")
     public ResponseEntity<String> receberCadastro(@RequestBody CadastroDTO payload) {
         if (payload.getCadastroData() == null) {
@@ -52,12 +49,8 @@ public class ConexaoController {
         }
     }
 
-    // ==========================================
-    // 🟢 NOVO: ENDPOINT DE LOGIN (RESOLVE O 404)
-    // ==========================================
     @PostMapping("/login")
     public ResponseEntity<String> receberLogin(@RequestBody CadastroDTO payload) {
-        // Validação de segurança inicial
         if (payload.getCadastroData() == null) {
             return ResponseEntity.badRequest().body("Dados de login vazios.");
         }
@@ -65,14 +58,11 @@ public class ConexaoController {
         String emailDigitado = payload.getCadastroData().getEmail();
         String senhaDigitada = payload.getCadastroData().getSenha();
 
-        // Faz a busca do usuário no banco usando o e-mail vindo do JavaScript
         Optional<Usuario> usuarioBanco = usuarioRepository.findByEmail(emailDigitado);
 
-        // Se o usuário existir e a senha for idêntica à do banco, autoriza o login
         if (usuarioBanco.isPresent() && usuarioBanco.get().getSenha().equals(senhaDigitada)) {
             return ResponseEntity.ok("Login realizado com sucesso!");
         } else {
-            // Caso contrário, retorna erro 401 (Não Autorizado) protegendo o sistema
             return ResponseEntity.status(401).body("E-mail ou senha incorretos.");
         }
     }

@@ -13,12 +13,10 @@ public class Cuidador {
     
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usuario; // Ligação direta com o login
+    private Usuario usuario;
 
-    // Construtor padrão
     public Cuidador() {}
 
-    // GETTERS E SETTERS MANUAIS
     public Integer getId() {
         return id;
     }

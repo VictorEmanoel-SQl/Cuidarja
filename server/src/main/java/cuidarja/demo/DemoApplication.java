@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DemoApplication {
 
     public static void main(String[] args) {
-        // ESSE é o comando que liga o servidor real, não o System.out.println
         SpringApplication.run(DemoApplication.class, args);
     }
 }

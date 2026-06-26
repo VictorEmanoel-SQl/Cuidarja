@@ -1,0 +1,387 @@
+CONFIGURAÇÕES:
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="color-scheme" content="light dark">
+  <title>Tela de Configurações</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /*------------------------------CORES-PRINCIPAIS------------------------------*/
+      color-scheme: light dark;
+      --cor-da-secao: light-dark(#f5ebeb, #1C1C1E);
+      --cor-dos-titulos: light-dark(#4a4a4a, #F2F2F7);
+      --preto: black;
+      --branco: white;
+      
+      /*------------------------------CABECALHO------------------------------*/
+      --cor-do-cabecalho: #6fb9c6;
+      --sombra-do-cabecalho: rgba(0, 0, 0, 0.18);
+      --sobreposicao: rgba(0, 0, 0, 0.3);
+      --sombra-do-puxador: rgba(0, 0, 0, 0.22);
+      --cor-botao-navegacao-principal: #ffffffaa;
+      
+      /*------------------------------TAMANHOS------------------------------*/
+      --tamanho-puxador: clamp(3.8rem, 20.8vw, 6rem);
+      
+      /*------------------------------FONTES------------------------------*/
+      --fonte-titulos: 'Anton', sans-serif;
+      --fonte-textos: sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      height: 100dvh;
+      height: var(--vh-fixo, 100dvh);
+      overflow: hidden;
+      font-family: var(--fonte-textos);
+      font-size: 16px;
+      position: relative;
+    }
+
+    header, .sobreposicao {
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    main {
+      display: flex;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+      overflow-y: auto; 
+      scroll-behavior: smooth;
+    }
+
+    section {
+      flex: 0 0 100%;
+      width: 100vw;
+      min-height: 100%; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--cor-da-secao);
+      padding-bottom: 5vh; 
+    }
+
+    /*------------------------------CABECALHO------------------------------*/
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: calc(var(--vh-fixo, 100vh) * 0.7);
+      background: var(--cor-do-cabecalho);
+      z-index: 10;
+      transform: translateY(calc(var(--vh-fixo, 100vh) * -0.6));
+      transition: transform 0.6s ease;
+      padding: clamp(1rem, 2.5vh, 2.5rem);
+      box-shadow: 0 0.4rem 0.8rem var(--sombra-do-cabecalho);
+      will-change: transform;
+    }
+
+    h1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--branco);
+      text-shadow: 0.1rem 0.1rem 0.1rem var(--preto);
+      font-size: clamp(2.2rem, 12.5vw, 4.5rem);
+      font-family: var(--fonte-titulos);
+      letter-spacing: 2px;
+    }
+
+    .navegacao-principal {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(0.5rem, 1.86vh, 1.5rem);
+      margin-top: clamp(1rem, 3vh, 3rem);
+    }
+
+    .link-menu {
+      display: block;
+      text-align: center;
+      padding: clamp(0.5rem, 1.5vh, 1.2rem);
+      border: none;
+      border-radius: 4rem;
+      background: var(--cor-botao-navegacao-principal);
+      box-shadow: inset 0 -1px 1px var(--preto), inset 0 1px 1px var(--branco);
+      color: var(--preto);
+      font-weight: bold;
+      text-decoration: none;
+      text-shadow: 0.1px 0.1px 1px var(--preto);
+      outline: none;
+      font-size: clamp(0.85rem, 4.16vw, 1.4rem);
+    }
+
+    .link-menu:active {
+      transform: scale(0.95);
+      transition: transform 0.25s;
+      box-shadow: inset 0 -2px 2px var(--preto), inset 0 2px 2px var(--branco);
+      border: 0.1px gray solid;
+      opacity: 0.95;
+    }
+
+    .puxador {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--cor-do-cabecalho);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 11;
+      width: var(--tamanho-puxador);
+      aspect-ratio: 1;
+      bottom: calc(var(--tamanho-puxador) / -2);
+      font-size: calc(var(--tamanho-puxador) * 0.4);
+    }
+
+    .puxador::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow: 0 0.4rem 0.8rem var(--sombra-do-puxador);
+      z-index: -1;
+      clip-path: polygon(-100% 50%, 200% 50%, 200% 200%, -100% 200%);
+    }
+
+    .puxador::after {
+      content: "\25BC";
+      color: var(--branco);
+      position: relative;
+    }
+    /*------------------------------CABECALHO------------------------------*/
+
+    /*------------------------------SOBREPOSICAO------------------------------*/
+    .sobreposicao {
+      position: absolute;
+      inset: 0;
+      background: var(--sobreposicao);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+      z-index: 5;
+    }
+
+    .sobreposicao.ativa {
+      opacity: 1;
+      pointer-events: all;
+    }
+    /*------------------------------SOBREPOSICAO------------------------------*/
+
+    /*------------------------------TELA DE CONFIGURAÇÕES------------------------------*/
+    .layout-central-config {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 85%;
+      max-width: 340px; 
+      margin-top: 18vh; 
+    }
+
+    .card-mapa-config {
+      width: 100%;
+      background-color: #3bb2f6; 
+      border-radius: 1.2rem; 
+      padding: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+      margin-bottom: 2rem; 
+    }
+
+    .titulo-mapa-config {
+      font-family: var(--fonte-titulos);
+      color: var(--branco);
+      font-size: clamp(2rem, 8vw, 2.8rem);
+      letter-spacing: 2px;
+      margin-bottom: 0.8rem;
+      font-weight: normal; 
+    }
+
+    #VisorMapa {
+      width: 100%;
+      height: 25vh; 
+      min-height: 180px; 
+      background-color: rgba(255, 255, 255, 0.15); 
+      border-radius: 0.5rem;
+      contain: layout size; 
+    }
+
+    .label-temperatura-config {
+      color: var(--branco);
+      font-size: 1.1rem;
+      font-style: italic;
+      font-weight: 600;
+      margin-top: 1.2rem;
+      margin-bottom: 0.2rem;
+      text-align: center;
+      display: block;
+    }
+
+    #VisorTemp {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--branco);
+      font-size: clamp(2.5rem, 10vw, 3.5rem);
+      font-weight: bold;
+      text-align: center;
+      width: 100%;
+      padding: 0;
+    }
+
+    #BotaoMapa {
+      background-color: var(--cor-do-cabecalho); 
+      color: var(--branco);
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 3rem; 
+      padding: 0.8rem 2.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      transition: transform 0.1s, filter 0.1s;
+    }
+
+    #BotaoMapa:active {
+      transform: scale(0.96);
+      filter: brightness(0.95);
+    }
+    /*------------------------------TELA DE CONFIGURAÇÕES------------------------------*/
+  </style>
+</head>
+
+<body>
+  <div class="sobreposicao" id="sobreposicao"></div>
+
+  <header id="cabecalho">
+    <h1>CuidarJá</h1>
+    <nav class="navegacao-principal" aria-label="Menu Principal">
+      <a href="/conta" data-link class="link-menu" draggable="false">conta</a>
+      <a href="/configuracoes" data-link class="link-menu" draggable="false">configurações</a>
+      <a href="/perfil-hospitalar" data-link class="link-menu" draggable="false">perfil hospitalar</a>
+      <a href="/loja" data-link class="link-menu" draggable="false">loja</a>
+      <a href="/agradecimentos" data-link class="link-menu" draggable="false">agradecimentos</a>
+    </nav>
+    <div class="puxador"></div>
+  </header>
+
+  <main id="telas">
+    <section id="tela-configuracoes">
+      <div class="layout-central-config">
+        
+        <div class="card-mapa-config">
+          <h2 class="titulo-mapa-config">MAPA</h2>
+          
+          <div id="VisorMapa"></div>
+          
+          <label for="VisorTemp" class="label-temperatura-config">Temperatura da região:</label>
+          
+          <input type="text" id="VisorTemp" value="0°" readonly inputmode="none" aria-live="polite">
+        </div>
+
+        <button id="BotaoMapa">ATIVAR</button>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AQUI_VAI_A_CHAVE_DO_GOOGLE_MAPS" async defer></script>
+
+  <script>
+    function ajustarViewport() {
+      const altura = window.innerHeight;
+      document.documentElement.style.setProperty('--vh-fixo', `${altura}px`);
+    }
+    ajustarViewport();
+    
+    let t;
+    window.addEventListener('resize', () => {
+      clearTimeout(t);
+      t = setTimeout(ajustarViewport, 100);
+    });
+
+    const cabecalho = document.getElementById("cabecalho"),
+          sobreposicao = document.getElementById("sobreposicao");
+
+    let menuAberto = false;
+    let posicaoYInicial = 0;
+    let emMovimento = false;
+
+    cabecalho.addEventListener('touchstart', e => {
+      if (document.activeElement && document.activeElement.tagName === 'INPUT') document.activeElement.blur();
+      posicaoYInicial = e.touches[0].clientY;
+      emMovimento = false;
+    }, { passive: true });
+
+    cabecalho.addEventListener('touchmove', e => {
+      const distY = e.touches[0].clientY - posicaoYInicial;
+      if ((!menuAberto && distY > 0) || (menuAberto && distY < 0)) {
+        if (!emMovimento) { cabecalho.style.transition = 'none'; emMovimento = true; }
+        
+        const ALTURA_ATUAL = window.innerHeight;
+        const base = menuAberto ? 0 : (ALTURA_ATUAL * -0.6);
+        const posPx = Math.max(ALTURA_ATUAL * -0.6, Math.min(base + distY, 0));
+        
+        requestAnimationFrame(() => { 
+          if (emMovimento) cabecalho.style.transform = `translateY(${posPx}px)`; 
+        });
+      }
+    }, { passive: true });
+
+    cabecalho.addEventListener('touchend', e => {
+      emMovimento = false;
+      cabecalho.style.transition = 'transform 0.6s ease';
+      void cabecalho.offsetHeight; 
+      
+      const distY = e.changedTouches[0].clientY - posicaoYInicial;
+
+      if (Math.abs(distY) < 15) menuAberto = !menuAberto;
+      else if (!menuAberto && distY > 80) menuAberto = true;
+      else if (menuAberto && distY < -80) menuAberto = false;
+
+      atualizarMenuVisuais();
+    });
+
+    function atualizarMenuVisuais() {
+      cabecalho.style.transform = menuAberto ? "translateY(0)" : "translateY(calc(var(--vh-fixo) * -0.6))";
+      sobreposicao.classList.toggle("ativa", menuAberto);
+    }
+
+    const fecharMenu = (e) => {
+      if (e?.cancelable) e.preventDefault();
+      if (menuAberto) {
+        menuAberto = false;
+        atualizarMenuVisuais();
+      }
+    };
+
+    sobreposicao.addEventListener('touchend', fecharMenu);
+    sobreposicao.addEventListener('click', fecharMenu);
+  </script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+CONTA:
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="color-scheme" content="light dark">
+  <title>Tela de Conta</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="account.style.css">
+</head>
+
+<body>
+  <div class="sobreposicao" id="sobreposicao"></div>
+
+  <header id="cabecalho">
+    <h1>CuidarJá</h1>
+    <nav class="navegacao-principal" aria-label="Menu Principal">
+      <a href="/conta" data-link class="link-menu" draggable="false">conta</a>
+      <a href="/configuracoes" data-link class="link-menu" draggable="false">configurações</a>
+      <a href="/perfil-hospitalar" data-link class="link-menu" draggable="false">perfil hospitalar</a>
+      <a href="/loja" data-link class="link-menu" draggable="false">loja</a>
+      <a href="/agradecimentos" data-link class="link-menu" draggable="false">agradecimentos</a>
+    </nav>
+    <div class="puxador"></div>
+  </header>
+
+  <main id="telas">
+    <section id="tela-conta">
+      <div class="conteudo-centralizado secao-conta-ajuste">
+        
+        <input type="file" id="upload-foto-conta" accept="image/*" capture="user" class="escondido">
+        <label for="upload-foto-conta" class="avatar-wrapper-conta" aria-label="Alterar foto de perfil">
+          <img id="imagem-perfil-conta" src="assets/avatar-padrao.png" class="avatar-img-conta" alt="Sua foto de perfil">
+        </label>
+
+        <div class="nome-usuario-conta">Victor Emanuel</div>
+
+        <form id="form-conta" class="formulario-conta">
+          <div class="grupo-input-conta">
+            <label for="email-conta" class="label-conta">E-mail</label>
+            <input type="email" id="email-conta" class="input-conta" value="Pedra@pedra.com" autocomplete="email">
+          </div>
+
+          <div class="grupo-input-conta">
+            <label for="senha-conta" class="label-conta">Senha</label>
+            <input type="password" id="senha-conta" class="input-conta" value="pedra12345" autocomplete="current-password">
+          </div>
+
+          <div class="grupo-input-conta">
+            <label for="numero-conta" class="label-conta">Número</label>
+            <input type="tel" id="numero-conta" class="input-conta" value="88 99971-3351" autocomplete="tel">
+          </div>
+        </form>
+
+      </div>
+    </section>
+  </main>
+
+<script src="account.controller.js"></script>
+</body>
+</html>

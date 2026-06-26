@@ -5,5 +5,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CuidadorRepository extends JpaRepository<Cuidador, Integer> {
-    // O JpaRepository já cria os métodos .save(), .findAll(), etc. automaticamente!
 }

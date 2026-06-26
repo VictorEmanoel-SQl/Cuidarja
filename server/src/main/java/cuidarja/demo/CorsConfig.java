@@ -9,9 +9,9 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") // Libera todas as rotas da API
-                .allowedOrigins("*") // Libera o acesso de qualquer origem (ex: seu Live Server 5500)
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD") // Libera todos os métodos, incluindo o OPTIONS (Preflight)
-                .allowedHeaders("*"); // Libera todos os cabeçalhos
+        registry.addMapping("/**")
+                .allowedOrigins("*") 
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD") 
+                .allowedHeaders("*"); 
     }
 }

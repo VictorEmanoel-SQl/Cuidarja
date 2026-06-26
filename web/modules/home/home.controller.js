@@ -1,5 +1,3 @@
-
-// IMPORTAÇÃO DE INICIALIZAÇÃO
 import { homeState } from './home.state.js';
 import { 
   calcularProximoIndice, 
@@ -11,9 +9,10 @@ import { iniciarMonitoramentoIdoso } from '../elderly-care/elderly-care.controll
 import { inicializarModuloTemperatura } from '../elderly-care/elderly-care.open-meteo.js';
 
 let telas, indicadores, cabecalho, sobreposicao;
+let lastDoubleTapTime = 0;
 
+const ehInterativo = target => ['INPUT', 'BUTTON', 'A', 'SELECT'].includes(target.tagName) || target.classList.contains('botao-mostrar-senha');
 
-// GERADOR DE IDS
 function gerarCodigoSeisDigitos() {
   const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let resultado = '';
@@ -23,8 +22,12 @@ function gerarCodigoSeisDigitos() {
   return resultado;
 }
 
-// GERENCIADOR
 export function initHomeController() {
+
+  const alturaFixa = window.innerHeight;
+  document.documentElement.style.setProperty('--altura-fixa', `${alturaFixa}px`);
+
+  
   telas = document.getElementById("telas");
   indicadores = document.querySelectorAll("#paginacao span");
   cabecalho = document.getElementById("cabecalho");
@@ -32,13 +35,17 @@ export function initHomeController() {
 
   if (!telas || !cabecalho || !sobreposicao) return;
 
+  
   homeState.reset();
   telas.style.transform = `translateX(-100vw)`;
 
+  
   configurarFluxoConexaoDispositivos();
   configurarFluxoMonitoramentoIdoso();
   configurarFluxoGestaoMenu();
+  configurarProtecoesDowntimeMobile();
 }
+
 
 export function destroyHomeController() {
   if (telas) {
@@ -54,10 +61,13 @@ export function destroyHomeController() {
     sobreposicao.removeEventListener("touchend", fecharMenu);
     sobreposicao.removeEventListener("click", fecharMenu);
   }
+  
+  
+  document.removeEventListener('touchstart', evitarZoomMultitouch);
+  document.removeEventListener('touchend', evitarDoubleTapGlitches);
 }
 
 
-// CONEXÃO DE DISPOSITIVOS
 function configurarFluxoConexaoDispositivos() {
   const botaoGerar = document.getElementById('botao-generar-id');
   const caixaOutputId = document.getElementById('input-receber-id');
@@ -78,7 +88,6 @@ function configurarFluxoConexaoDispositivos() {
   if (botaoConectar && inputId) {
     botaoConectar.addEventListener('click', () => {
       const idDigitado = inputId.value.trim();
-
       if (!idDigitado || idDigitado.length !== 6) {
         alert("Por favor, insira um código de identificação válido com 6 caracteres!");
         return;
@@ -88,7 +97,7 @@ function configurarFluxoConexaoDispositivos() {
   }
 }
 
-// MAPA E TEMPERATURA
+
 function configurarFluxoMonitoramentoIdoso() {
   const botaoMapa = document.getElementById('BotaoMapa');
   const visorMapa = document.getElementById('VisorMapa');
@@ -105,8 +114,6 @@ function configurarFluxoMonitoramentoIdoso() {
 }
 
 
-// NAVEGAÇÃO MOBILE 
-
 function configurarFluxoGestaoMenu() {
   telas.addEventListener("touchstart", tratarTouchStartTelas, { passive: true });
   telas.addEventListener("touchend", tratarTouchEndTelas, { passive: true });
@@ -120,19 +127,30 @@ function configurarFluxoGestaoMenu() {
 }
 
 function tratarTouchStartTelas(e) {
-  if (homeState.menuAberto) return;
+  if (homeState.menuAberto || ehInterativo(e.target)) return;
   homeState.posicaoXInicial = e.touches[0].clientX;
 }
 
 function tratarTouchEndTelas(e) {
-  if (homeState.menuAberto) return;
-  homeState.indiceAtual = calcularProximoIndice(homeState.posicaoXInicial, e.changedTouches[0].clientX, homeState.indiceAtual, indicadores.length);
+  if (homeState.menuAberto || ehInterativo(e.target)) return;
+  
+  homeState.indiceAtual = calcularProximoIndice(
+    homeState.posicaoXInicial, 
+    e.changedTouches[0].clientX, 
+    homeState.indiceAtual, 
+    indicadores.length
+  );
+  
+  telas.style.transition = 'transform 0.5s ease-out';
   telas.style.transform = `translateX(${-homeState.indiceAtual * 100}vw)`;
-  indicadores.forEach(ind => ind.classList.remove("ativo"));
-  if (indicadores[homeState.indiceAtual]) indicadores[homeState.indiceAtual].classList.add("ativo");
+  
+  indicadores.forEach((ind, idx) => {
+    ind.classList.toggle("ativo", idx === homeState.indiceAtual);
+  });
 }
 
 function tratarTouchStartCabecalho(e) {
+  if (document.activeElement.tagName === 'INPUT') document.activeElement.blur();
   homeState.posicaoYInicial = e.touches[0].clientY;
   homeState.emMovimento = false;
 }
@@ -140,10 +158,16 @@ function tratarTouchStartCabecalho(e) {
 function tratarTouchMoveCabecalho(e) {
   const posicaoYAtual = e.touches[0].clientY;
   const distanciaY = posicaoYAtual - homeState.posicaoYInicial;
+  
   if ((!homeState.menuAberto && distanciaY > 0) || (homeState.menuAberto && distanciaY < 0)) {
-    if (!homeState.emMovimento) { cabecalho.style.transition = 'none'; homeState.emMovimento = true; }
+    if (!homeState.emMovimento) { 
+      cabecalho.style.transition = 'none'; 
+      homeState.emMovimento = true; 
+    }
     const posicaoVh = calcularDeslocamentoCabecalho(homeState.posicaoYInicial, posicaoYAtual, homeState.menuAberto, window.innerHeight);
-    requestAnimationFrame(() => { if (homeState.emMovimento) cabecalho.style.transform = `translateY(${posicaoVh}vh)`; });
+    requestAnimationFrame(() => { 
+      if (homeState.emMovimento) cabecalho.style.transform = `translateY(${posVh}vh)`; 
+    });
   }
 }
 
@@ -151,15 +175,37 @@ function tratarTouchEndCabecalho(e) {
   homeState.emMovimento = false;
   cabecalho.style.transition = 'transform 0.6s ease';
   void cabecalho.offsetHeight; 
+  
   homeState.menuAberto = determinarEstadoFinalMenu(homeState.posicaoYInicial, e.changedTouches[0].clientY, homeState.menuAberto);
-  cabecalho.style.transform = homeState.menuAberto ? "translateY(0)" : "translateY(-60vh)";
+  cabecalho.style.transform = homeState.menuAberto ? "translateY(0)" : "translateY(calc(var(--altura-fixa) * -0.6))";
   sobreposicao.classList.toggle("ativa", homeState.menuAberto);
 }
 
 function fecharMenu(e) {
   if (e && e.cancelable) e.preventDefault();
   cabecalho.style.transition = 'transform 0.6s ease';
-  cabecalho.style.transform = "translateY(-60vh)";
+  cabecalho.style.transform = "translateY(calc(var(--altura-fixa) * -0.6))";
   sobreposicao.classList.remove("ativa");
   homeState.menuAberto = false;
+}
+
+
+function configurarProtecoesDowntimeMobile() {
+  document.addEventListener('touchstart', evitarZoomMultitouch, { passive: false });
+  document.addEventListener('touchend', evitarDoubleTapGlitches, { passive: false });
+}
+
+function evitarZoomMultitouch(e) {
+  if (!ehInterativo(e.target) && e.touches.length > 1) {
+    e.preventDefault();
+  }
+}
+
+function evitarDoubleTapGlitches(e) {
+  if (ehInterativo(e.target)) return;
+  const agora = performance.now();
+  if (agora - lastDoubleTapTime < 300) {
+    e.preventDefault();
+  }
+  lastDoubleTapTime = agora;
 }

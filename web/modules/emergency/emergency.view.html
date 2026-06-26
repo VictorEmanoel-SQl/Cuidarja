@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="color-scheme" content="light dark">
+  <title>Tela de Emergência</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="emergency.style.css">
+</head>
+
+<body>
+  <div class="sobreposicao" id="sobreposicao"></div>
+
+  <header id="cabecalho">
+    <h1>CuidarJá</h1>
+    <nav class="navegacao-principal" aria-label="Menu Principal">
+      <a href="/conta" data-link class="link-menu" draggable="false">conta</a>
+      <a href="/configuracoes" data-link class="link-menu" draggable="false">configurações</a>
+      <a href="/perfil-hospitalar" data-link class="link-menu" draggable="false">perfil hospitalar</a>
+      <a href="/loja" data-link class="link-menu" draggable="false">loja</a>
+      <a href="/agradecimentos" data-link class="link-menu" draggable="false">agradecimentos</a>
+    </nav>
+    <div class="puxador"></div>
+  </header>
+
+  <main id="telas">
+    <section id="tela-emergencia">
+      <div class="conteudo-centralized">
+        <h2 class="escondido-visualmente">Tela de Emergência</h2>
+        
+        <div class="container-botoes">
+          <button class="btn-acao-principal bg-vermelho" aria-label="Botão de Emergência. Aperte para chamar a Ambulância." data-action="abrir-sos">
+            <img src="assets/" alt="Estrela" class="icone-btn-main">
+            <div class="conteudo-btn-main">
+              <span class="titulo-btn-main">EMERGÊNCIA</span>
+              <hr class="linha-btn-main">
+              <span class="texto-btn-main">Aperte para a Ambulância ser chamada.</span>
+            </div>
+          </button>
+
+          <button class="btn-acao-principal bg-verde" aria-label="Botão de Chamada. Aperte para chamar o cuidador." data-action="abrir-chamada">
+            <img src="assets/" alt="Sino" class="icone-btn-main">
+            <div class="conteudo-btn-main">
+              <span class="titulo-btn-main">CHAMADA</span>
+              <hr class="linha-btn-main">
+              <span class="texto-btn-main">Aperte para chamar o Cuidador.</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="janela-emergencia" class="janela bg-vermelho" role="dialog" aria-modal="true" aria-labelledby="titulo-emergencia">
+    <h2 id="titulo-emergencia" class="titulo-janela">Emergência</h2>
+    
+    <div id="estado-contador-emergencia" class="estado-janela">
+      <div id="contador-emergencia" class="numero-janela" aria-live="assertive">06</div>
+      <p class="texto-janela">Aperte o botão para cancelar o pedido de emergência.</p>
+      <button class="btn-acao-janela btn-fechar-modal">CANCELAR</button>
+    </div>
+
+    <div id="estado-confirmado-emergencia" class="estado-janela escondido">
+      <img src="assets/gif-ambulancia.gif" alt="Ambulância a caminho" class="gif-janela">
+      <p class="texto-janela">A ambulância já saiu para ir buscá-lo.</p>
+      <button class="btn-acao-janela btn-fechar-modal">VOLTAR</button>
+    </div>
+  </div>
+
+  <div id="janela-chamada" class="janela bg-verde" role="dialog" aria-modal="true" aria-labelledby="titulo-chamada">
+    <h2 id="titulo-chamada" class="titulo-janela">Chamando</h2>
+    <img src="assets/gif-chamando.gif" alt="Animação de chamada em andamento" class="gif-janela">
+    <p class="texto-janela">O seu cuidador está sendo chamado nesse momento.</p>
+    <button class="btn-acao-janela btn-fechar-modal">CANCELAR</button>
+  </div>
+
+  <script type="module">
+    import EmergencyController from './emergency.controller.js';
+    EmergencyController.init(document.body);
+  </script>
+</body>
+</html>
