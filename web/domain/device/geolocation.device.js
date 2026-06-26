@@ -5,7 +5,6 @@ export function rastreamentoIdoso() {
     
     navigator.geolocation.watchPosition(
       (dadosGps) => {
-        // Mantivemos 'lat' e 'lng' como querias
         const lat = dadosGps.coords.latitude;
         const lng = dadosGps.coords.longitude;
 
