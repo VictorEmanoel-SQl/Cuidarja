@@ -1,4 +1,3 @@
-// IMPORTAÇÃO DE MÓDULOS 
 import { homeState } from './home.state.js';
 import { 
   calcularProximoIndice, 
@@ -6,7 +5,6 @@ import {
   determinarEstadoFinalMenu 
 } from './home.domain.js';
 
-// VARIÁVEIS G e A
 let telas, indicadores, cabecalho, sobreposicao;
 let lastDoubleTapTime = 0;
 
@@ -21,9 +19,15 @@ function gerarCodigoSeisDigitos() {
   return resultado;
 }
 
-
-// INICIALIZAÇÃO DO HOME
 export function initHomeController() {
+  if (!document.getElementById('css-home-fix')) {
+    const link = document.createElement('link');
+    link.id = 'css-home-fix';
+    link.rel = 'stylesheet';
+    link.href = './web/modules/home/home.style.css';
+    document.head.appendChild(link);
+  }
+
   const alturaFixa = window.innerHeight;
   document.documentElement.style.setProperty('--altura-fixa', `${alturaFixa}px`);
 
@@ -62,8 +66,6 @@ export function destroyHomeController() {
   document.removeEventListener('touchend', evitarDoubleTapGlitches);
 }
 
-
-// CONEXÃO DE DISPOSITIVOS
 function configurarFluxoConexaoDispositivos() {
   const botaoGerar = document.getElementById('botao-gerar-id');
   const caixaOutputId = document.getElementById('input-receber-id');
@@ -93,8 +95,6 @@ function configurarFluxoConexaoDispositivos() {
   }
 }
 
-
-// MONITORAMENTO MAPA E TEMPERATURA
 function configurarFluxoMonitoramentoIdoso() {
   const botaoMapa = document.getElementById('BotaoMapa');
   const visorMapa = document.getElementById('VisorMapa');
@@ -163,7 +163,6 @@ function configurarFluxoMonitoramentoIdoso() {
   }
 }
 
-// NAVEGAÇÃO DO MENU 
 function configurarFluxoGestaoMenu() {
   telas.addEventListener("touchstart", tratarTouchStartTelas, { passive: true });
   telas.addEventListener("touchend", tratarTouchEndTelas, { passive: true });
@@ -238,8 +237,6 @@ function fecharMenu(e) {
   homeState.menuAberto = false;
 }
 
-
-// PROTEÇÕES DE INTERFACE MOBILE 
 function configurarProtecoesDowntimeMobile() {
   document.addEventListener('touchstart', evitarZoomMultitouch, { passive: false });
   document.addEventListener('touchend', evitarDoubleTapGlitches, { passive: false });

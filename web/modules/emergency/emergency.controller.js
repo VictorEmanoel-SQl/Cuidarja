@@ -22,7 +22,6 @@ export const EmergencyController = {
         this._boundTratarAlerta = this.tratarAlerta.bind(this);
         socket.on('alerta-sensor', this._boundTratarAlerta);
 
-        
         cabecalho.addEventListener('touchstart', this.tratarTouchStart, { passive: true });
         cabecalho.addEventListener('touchmove', this.tratarTouchMove, { passive: false });
         cabecalho.addEventListener('touchend', this.tratarTouchEnd, { passive: true });
@@ -30,7 +29,6 @@ export const EmergencyController = {
         sobreposicao.addEventListener('touchend', this.tratarFecharMenuOuModal, { passive: false });
         sobreposicao.addEventListener('click', this.tratarFecharMenuOuModal);
 
-        
         const btnEmergencia = this.view.querySelector('[data-action="abrir-sos"]');
         if (btnEmergencia) {
             btnEmergencia.addEventListener('click', () => this.abrirModal('janela-emergencia'));
@@ -41,7 +39,6 @@ export const EmergencyController = {
             btnChamada.addEventListener('click', () => this.abrirModal('janela-chamada'));
         }
 
-        
         const botoesFechar = this.view.querySelectorAll('.btn-fechar-modal');
         botoesFechar.forEach(botao => {
             botao.addEventListener('click', () => this.fecharModais());
@@ -160,7 +157,6 @@ export const EmergencyController = {
                 this.pararContadorEmergencia();
                 if (estadoContador) estadoContador.classList.add("escondido");
                 if (estadoConfirmado) estadoConfirmado.classList.remove("escondido");
-                
                 
                 socket.emit('disparar-alerta-emergencia', { enviadoEm: Date.now() });
             }
