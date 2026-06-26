@@ -1,12 +1,12 @@
 export const homeState = {
-  indiceAtual: 1,
+  indiceAtual: 0,
   posicaoXInicial: 0,
   posicaoYInicial: 0,
   menuAberto: false,
   emMovimento: false,
 
   reset() {
-    this.indiceAtual = 1;
+    this.indiceAtual = 0;
     this.posicaoXInicial = 0;
     this.posicaoYInicial = 0;
     this.menuAberto = false;

@@ -1,3 +1,4 @@
+// IMPORTAÇÃO DE MÓDULOS 
 import { homeState } from './home.state.js';
 import { 
   calcularProximoIndice, 
@@ -5,9 +6,7 @@ import {
   determinarEstadoFinalMenu 
 } from './home.domain.js';
 
-import { iniciarMonitoramentoIdoso } from '../elderly-care/elderly-care.controller.js';
-import { inicializarModuloTemperatura } from '../elderly-care/elderly-care.open-meteo.js';
-
+// VARIÁVEIS G e A
 let telas, indicadores, cabecalho, sobreposicao;
 let lastDoubleTapTime = 0;
 
@@ -22,12 +21,12 @@ function gerarCodigoSeisDigitos() {
   return resultado;
 }
 
-export function initHomeController() {
 
+// INICIALIZAÇÃO DO HOME
+export function initHomeController() {
   const alturaFixa = window.innerHeight;
   document.documentElement.style.setProperty('--altura-fixa', `${alturaFixa}px`);
 
-  
   telas = document.getElementById("telas");
   indicadores = document.querySelectorAll("#paginacao span");
   cabecalho = document.getElementById("cabecalho");
@@ -35,17 +34,14 @@ export function initHomeController() {
 
   if (!telas || !cabecalho || !sobreposicao) return;
 
-  
   homeState.reset();
-  telas.style.transform = `translateX(-100vw)`;
+  telas.style.transform = `translateX(0vw)`;
 
-  
   configurarFluxoConexaoDispositivos();
   configurarFluxoMonitoramentoIdoso();
   configurarFluxoGestaoMenu();
   configurarProtecoesDowntimeMobile();
 }
-
 
 export function destroyHomeController() {
   if (telas) {
@@ -62,14 +58,14 @@ export function destroyHomeController() {
     sobreposicao.removeEventListener("click", fecharMenu);
   }
   
-  
   document.removeEventListener('touchstart', evitarZoomMultitouch);
   document.removeEventListener('touchend', evitarDoubleTapGlitches);
 }
 
 
+// CONEXÃO DE DISPOSITIVOS
 function configurarFluxoConexaoDispositivos() {
-  const botaoGerar = document.getElementById('botao-generar-id');
+  const botaoGerar = document.getElementById('botao-gerar-id');
   const caixaOutputId = document.getElementById('input-receber-id');
 
   if (botaoGerar && caixaOutputId) {
@@ -98,29 +94,83 @@ function configurarFluxoConexaoDispositivos() {
 }
 
 
+// MONITORAMENTO MAPA E TEMPERATURA
 function configurarFluxoMonitoramentoIdoso() {
   const botaoMapa = document.getElementById('BotaoMapa');
   const visorMapa = document.getElementById('VisorMapa');
+  const visorTemp = document.getElementById('VisorTemp');
 
-  if (botaoMapa && visorMapa) {
-    botaoMapa.addEventListener('click', () => {
-      iniciarMonitoramentoIdoso();
-    });
+  if (visorTemp) {
+    visorTemp.style.display = "none";
   }
 
-  let latitudeDoIdoso; 
-  let longitudeDoIdoso;
-  inicializarModuloTemperatura(latitudeDoIdoso, longitudeDoIdoso);
+  if (botaoMapa) {
+    botaoMapa.addEventListener('click', async () => {
+      
+      if (visorMapa) {
+        visorMapa.innerHTML = "Localizando dispositivo do idoso...";
+      }
+
+      let lat, lng;
+
+      try {
+        const response = await fetch("/api/dispositivo/localizar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" }
+        });
+        
+        if (!response.ok) throw new Error("Erro ao solicitar localização");
+        
+        const coordenadasIdoso = await response.json();
+        lat = coordenadasIdoso.latitude;
+        lng = coordenadasIdoso.longitude;
+
+        if (visorMapa && window.google && window.google.maps) {
+          const localizacao = { lat: lat, lng: lng };
+          const mapa = new google.maps.Map(visorMapa, {
+            zoom: 16,
+            center: localizacao,
+          });
+          new google.maps.Marker({
+            position: localizacao,
+            map: mapa,
+          });
+        }
+
+        if (visorTemp) {
+          visorTemp.style.display = "block";
+          visorTemp.value = "Buscando clima...";
+        }
+
+        const urlClima = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lng}&current_weather=true`;
+        const responseClima = await fetch(urlClima);
+        const dadosClima = await responseClima.json();
+
+        if (visorTemp && dadosClima.current_weather) {
+          visorTemp.value = dadosClima.current_weather.temperature + "°C";
+        }
+
+      } catch (error) {
+        console.error("Erro no fluxo integrated de monitoramento:", error);
+        if (visorMapa) {
+          visorMapa.innerHTML = "Erro ao obter localização do idoso.";
+        }
+        if (visorTemp) {
+          visorTemp.value = "Erro";
+        }
+      }
+    });
+  }
 }
 
-
+// NAVEGAÇÃO DO MENU 
 function configurarFluxoGestaoMenu() {
   telas.addEventListener("touchstart", tratarTouchStartTelas, { passive: true });
   telas.addEventListener("touchend", tratarTouchEndTelas, { passive: true });
 
   cabecalho.addEventListener("touchstart", tratarTouchStartCabecalho, { passive: true });
   cabecalho.addEventListener("touchmove", tratarTouchMoveCabecalho, { passive: false });
-  cabecalho.addEventListener("touchend", tratarTouchEndCabecalho, { passive: true });
+  cabecalho.addEventListener("touchend", tratarTouchEndCabecalho, { passive: false });
 
   sobreposicao.addEventListener("touchend", fecharMenu, { passive: false });
   sobreposicao.addEventListener("click", fecharMenu);
@@ -166,7 +216,7 @@ function tratarTouchMoveCabecalho(e) {
     }
     const posicaoVh = calcularDeslocamentoCabecalho(homeState.posicaoYInicial, posicaoYAtual, homeState.menuAberto, window.innerHeight);
     requestAnimationFrame(() => { 
-      if (homeState.emMovimento) cabecalho.style.transform = `translateY(${posVh}vh)`; 
+      if (homeState.emMovimento) cabecalho.style.transform = `translateY(${posicaoVh}vh)`; 
     });
   }
 }
@@ -182,7 +232,6 @@ function tratarTouchEndCabecalho(e) {
 }
 
 function fecharMenu(e) {
-  if (e && e.cancelable) e.preventDefault();
   cabecalho.style.transition = 'transform 0.6s ease';
   cabecalho.style.transform = "translateY(calc(var(--altura-fixa) * -0.6))";
   sobreposicao.classList.remove("ativa");
@@ -190,6 +239,7 @@ function fecharMenu(e) {
 }
 
 
+// PROTEÇÕES DE INTERFACE MOBILE 
 function configurarProtecoesDowntimeMobile() {
   document.addEventListener('touchstart', evitarZoomMultitouch, { passive: false });
   document.addEventListener('touchend', evitarDoubleTapGlitches, { passive: false });

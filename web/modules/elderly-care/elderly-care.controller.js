@@ -1,38 +1,48 @@
-import { firebaseDb, ref } from "../../config/firebase.config.js";
-import { onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+document.addEventListener("DOMContentLoaded", () => {
+    const botaoMapa = document.getElementById("BotaoMapa");
+    const visorMapa = document.getElementById("VisorMapa");
 
-let monitorMapa;       
-let marcadorIdoso;     
+    if (botaoMapa) {
+        botaoMapa.addEventListener("click", async () => {
+            if (visorMapa) {
+                visorMapa.innerHTML = "Localizando dispositivo do idoso...";
+            }
 
-export function iniciarMonitoramentoIdoso() {
-  const caminhoBanco = ref(firebaseDb, "localizacao_idoso");
+            try {
+                const response = await fetch("/api/dispositivo/localizar", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" }
+                });
+                
+                if (!response.ok) throw new Error("Erro ao solicitar localização");
+                
+                const coordenadasIdoso = await response.json();
+                const lat = coordenadasIdoso.latitude;
+                const lng = coordenadasIdoso.longitude;
 
-  onValue(caminhoBanco, (instantaneo) => {
-    const dadosGps = instantaneo.val();
+                if (visorMapa && window.google && window.google.maps) {
+                    const localizacao = { lat: lat, lng: lng };
+                    const mapa = new google.maps.Map(visorMapa, {
+                        zoom: 16,
+                        center: localizacao,
+                    });
+                    new google.maps.Marker({
+                        position: localizacao,
+                        map: mapa,
+                    });
+                }
 
-    if (!dadosGps) {
-      return;
+                const eventoCoordenadas = new CustomEvent("coordenadasIdosoProntas", {
+                    detail: { lat: lat, lng: lng }
+                });
+                window.dispatchEvent(eventoCoordenadas);
+
+            } catch (error) {
+                console.error("Erro no fluxo de localização:", error);
+                if (visorMapa) {
+                    visorMapa.innerHTML = "Erro ao obter localização do idoso.";
+                }
+            }
+        });
     }
-
-    const latDoIdoso = dadosGps.latitude;
-    const lngDoIdoso = dadosGps.longitude;
-    const posicaoAtual = { lat: latDoIdoso, lng: lngDoIdoso };
-
-    if (!monitorMapa) {
-      monitorMapa = new google.maps.Map(document.getElementById("VisorMapa"), {
-        center: posicaoAtual,
-        zoom: 17,
-      });
-
-      marcadorIdoso = new google.maps.Marker({
-        position: posicaoAtual,
-        map: monitorMapa,
-        title: "Dispositivo Monitorado",
-        animation: google.maps.Animation.DROP
-      });
-    } else {
-      marcadorIdoso.setPosition(posicaoAtual);
-      monitorMapa.panTo(posicaoAtual);
-    }
-  });
-}
+});
