@@ -10,12 +10,10 @@ let indiceAtual = 0, posicaoXInicial = 0, posicaoYInicial = 0, menuAberto = fals
 
 const ehInterativo = target => ['INPUT', 'BUTTON', 'A', 'SELECT'].includes(target.tagName) || target.classList.contains('botao-mostrar-senha');
 
-// Só executa as animações de slide se os elementos existirem na página atual
 if (telas) {
     telas.style.transform = `translateX(0vw)`;
     let arrastando = false;
 
-    // Função compartilhada para atualizar slide
     const atualizarSlide = (distancia) => {
         if (indicadores.length > 0) {
             indiceAtual += distancia > 50 && indiceAtual < indicadores.length - 1 ? 1 : distancia < -50 && indiceAtual > 0 ? -1 : 0;
@@ -24,7 +22,6 @@ if (telas) {
         }
     };
 
-    // Eventos de TOUCH
     telas.ontouchstart = e => {
         if(menuAberto || ehInterativo(e.target)) return;
         posicaoXInicial = e.touches[0].clientX;
@@ -38,7 +35,6 @@ if (telas) {
         arrastando = false;
     }
 
-    // Eventos de MOUSE (para PC)
     telas.onmousedown = e => {
         if(menuAberto || ehInterativo(e.target)) return;
         posicaoXInicial = e.clientX;
@@ -52,13 +48,11 @@ if (telas) {
         arrastando = false;
     }
 
-    // Prevenir seleção de texto ao arrastar
     telas.ondragstart = e => {
         if(arrastando) e.preventDefault();
     }
 }
 
-// Só configura o cabeçalho móvel se ele existir
 if (cabecalho) {
     cabecalho.ontouchstart = e => {
         if (document.activeElement.tagName === 'INPUT') document.activeElement.blur();
@@ -105,7 +99,6 @@ if (sobreposicao) {
     sobreposicao.onclick = fecharMenu;
 }
 
-// Botão mostrar senha (apenas se existirem na página)
 document.querySelectorAll('.botao-mostrar-senha').forEach(botao => {
     const alternar = (e) => {
         e.preventDefault(); e.stopPropagation();
@@ -120,7 +113,6 @@ document.querySelectorAll('.botao-mostrar-senha').forEach(botao => {
     botao.addEventListener('touchstart', alternar, { passive: false });
 });
 
-// Prevenção de zoom/duplo clique
 let last = 0;
 document.addEventListener('touchstart', e => {
     if (!ehInterativo(e.target) && e.touches.length > 1) e.preventDefault();
@@ -132,35 +124,21 @@ document.addEventListener('touchend', e => {
     last = performance.now();
 });
 
-
-// ==========================================
-// 2. MAPEAMENTO SELETIVO DE CAMPOS
-// ==========================================
 const campos = {
     formLogin: document.querySelector('form[data-tipo-form="login"]'),
     formCadastro: document.querySelector('form[data-tipo-form="cadastro"]'),
     botaoSalvar: document.getElementById("SalvarDados"),
 };
 
-// Vinculação segura de Eventos de Envio diretamente nos Formulários
 if (campos.formLogin) campos.formLogin.addEventListener("submit", salvarDados);
 if (campos.formCadastro) campos.formCadastro.addEventListener("submit", salvarDados);
-//if (campos.botaoSalvar) campos.botaoSalvar.addEventListener("click", salvarDados);
 
 
-// ==========================================
-// 3. COLETA E TRATAMENTO DE DADOS CORRIGIDA
-// ==========================================
-// ==========================================
-// 3. COLETA E TRATAMENTO DE DADOS CORRIGIDA
-// ==========================================
 function montarDados(event) {
-    // Descobre qual elemento ou formulário disparou o evento atual
     const elementoDisparador = event?.target;
     const formDisparador = elementoDisparador?.closest('form');
     const tipoForm = formDisparador?.getAttribute('data-tipo-form');
 
-    // 1. Se o clique veio especificamente do botão de salvar dados finais
     if (elementoDisparador?.id === "SalvarDados" || elementoDisparador?.id === "botaoSalvar") {
         return {
             tipo: "dados_completos",
@@ -168,7 +146,6 @@ function montarDados(event) {
         };
     }
 
-    // 2. Se o formulário ativo for explicitamente o de cadastro
     if (tipoForm === "cadastro") {
         return {
             tipo: "cadastro",
@@ -179,8 +156,7 @@ function montarDados(event) {
             }
         };
     } 
-    
-    // 3. Se o formulário ativo for o de login
+
     if (tipoForm === "login") {
         return {
             tipo: "login",
@@ -191,7 +167,6 @@ function montarDados(event) {
         };
     }
 
-    // Fallback de segurança caso disparado por enter genérico externa
     const formLogin = document.querySelector('form[data-tipo-form="login"]');
     return {
         tipo: "login",
@@ -205,7 +180,6 @@ function montarDados(event) {
 async function salvarDados(event) {
     event.preventDefault();
 
-    // 🔥 Passamos o evento atual para o montarDados saber quem foi clicado/enviado
     const dadosOriginais = montarDados(event); 
     let dadosFormatados = {};
 
@@ -235,7 +209,6 @@ async function salvarDados(event) {
     else if (dadosOriginais.tipo === "login") url += "login";
     else if (dadosOriginais.tipo === "dados_completos") url += "dados-completos";
 
-    // Desativa o botão temporariamente para evitar cliques duplos acidentais
     const botaoSubmit = event.target.querySelector('button[type="submit"]') || event.target;
     if (botaoSubmit && botaoSubmit.tagName === "BUTTON") botaoSubmit.disabled = true;
 
@@ -263,7 +236,6 @@ async function salvarDados(event) {
         console.error("Erro de conexão:", erro);
         alert("O servidor Spring Boot parece estar desligado.");
     } finally {
-        // Reativa o botão para o usuário poder interagir novamente
         if (botaoSubmit && botaoSubmit.tagName === "BUTTON") botaoSubmit.disabled = false;
     }
 }
