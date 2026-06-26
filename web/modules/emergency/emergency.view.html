@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="/web/modules/emergency/emergency.style.css">
+  <link rel="stylesheet" href="./emergency.style.css">
 </head>
 
 <body>
@@ -34,7 +34,7 @@
         
         <div class="container-botoes">
           <button class="btn-acao-principal bg-vermelho" aria-label="Botão de Emergência" data-action="abrir-sos">
-            <img src="/web/assets/estrela.png" alt="Estrela" class="icone-btn-main">
+            <img src="/Cuidarja/web/Assets/icons/cruz.png" alt="Estrela" class="icone-btn-main">
             <div class="conteudo-btn-main">
               <span class="titulo-btn-main">EMERGÊNCIA</span>
               <hr class="linha-btn-main">
@@ -43,7 +43,7 @@
           </button>
 
           <button class="btn-acao-principal bg-verde" aria-label="Botão de Chamada" data-action="abrir-chamada">
-            <img src="/web/assets/sino.png" alt="Sino" class="icone-btn-main">
+            <img src="/Cuidarja/web/Assets/icons/sino.png" alt="Sino" class="icone-btn-main">
             <div class="conteudo-btn-main">
               <span class="titulo-btn-main">CHAMADA</span>
               <hr class="linha-btn-main">
@@ -77,5 +77,6 @@
     import EmergencyController from '/web/modules/emergency/emergency.controller.js';
     EmergencyController.init(document.body);
   </script>
+
 </body>
 </html>
