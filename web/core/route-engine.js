@@ -21,14 +21,18 @@ class RouteEngine {
             return;
         }
 
-        if (caminho === '#/home' || caminho === '#/') {
-            console.log("Conectando o núcleo à pasta 'home'...");
-            try {
-                const moduloHome = await import('../modules/home/home.routes.js');
-            } catch (error) {
-                console.error("Erro ao renderizar o front da pasta home:", error);
-                containerApp.innerHTML = `<p style="color: red;">Erro ao carregar a página inicial.</p>`;
+        try {
+            if (caminho === '#/home' || caminho === '#/') {
+                console.log("Conectando o núcleo à pasta 'home'...");
+                await import('../modules/home/home.routes.js');
+            } 
+            else if (caminho === '#/elderly-care') {
+                console.log("Conectando o núcleo à pasta 'elderly-care'...");
+                await import('../modules/elderly-care/elderly.routes.js');
             }
+        } catch (error) {
+            console.error("Erro ao renderizar o módulo:", error);
+            containerApp.innerHTML = `<p style="color: red;">Erro ao carregar a página.</p>`;
         }
     }
 
