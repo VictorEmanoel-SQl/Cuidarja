@@ -1,6 +1,6 @@
 # CuidarJá
 
-<img src="./web/assets/banner/banner.jpeg" alt="Banner do projeto">
+<img src="./web/assets/banner/banner.jpeg" alt="Banner do projeto" width="100%">
 
 O projeto CuidarJá consiste no desenvolvimento de um aplicativo híbrido voltado ao
 monitoramento remoto e à assistência de idosos, permitindo a conexão entre dispositivos de
